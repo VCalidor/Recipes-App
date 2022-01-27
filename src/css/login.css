@@ -1,18 +1,17 @@
 .login-section {
-  background: #FFFFFF;
+  background: white;
   height: 640px;
   position: relative;
   width: 360px;
 }
 
-#login-title {
+.login-title {
   align-items: flex-end;
-  color: #000000;
+  color: black;
   display: flex;
-  font-family: Roboto;
   font-size: 39px;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   height: 46px;
   left: 128px;
   line-height: 46px;
@@ -21,9 +20,9 @@
   width: 97px;
 }
 
-#login-password {
-  background: #FFFFFF;
-  border: 1px solid #000000;
+.login-password {
+  background: white;
+  border: 1px solid black;
   box-sizing: border-box;
   height: 58px;
   left: 30px;
@@ -32,9 +31,9 @@
   width: 293px;
 }
 
-#login-email {
-  background: #FFFFFF;
-  border: 1px solid #000000;
+.login-email {
+  background: white;
+  border: 1px solid black;
   box-sizing: border-box;
   height: 58px;
   left: 31px;
@@ -43,8 +42,8 @@
   width: 293px;
 }
 
-#login-btn {
-  background: #6CE34F;
+.login-btn {
+  background: #6ce34f;
   height: 76px;
   left: 11px;
   position: absolute;

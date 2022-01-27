@@ -25,9 +25,9 @@ export default function Login() {
 
   return (
     <section className="login-section">
-      <h1 id="login-title">Login</h1>
+      <h1 className="login-title">Login</h1>
       <input
-        id="login-email"
+        className="login-email"
         data-testid="email-input"
         type="email"
         placeholder="Email"
@@ -35,7 +35,7 @@ export default function Login() {
         onChange={ ({ target: { value } }) => setEmail(value) }
       />
       <input
-        id="login-password"
+        className="login-password"
         data-testid="password-input"
         type="password"
         placeholder="Password"
@@ -43,7 +43,7 @@ export default function Login() {
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
       <button
-        id="login-btn"
+        className="login-btn"
         type="button"
         data-testid="login-submit-btn"
         disabled={ validation() }
