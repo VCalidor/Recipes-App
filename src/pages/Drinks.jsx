@@ -1,11 +1,14 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import searchIcon from '../images/searchIcon.svg';
 
 export default function Drinks() {
   return (
-    <>
-      <h1>olá bebidas</h1>
+    <div>
+      <Header title="Drinks" search={ searchIcon } />
+      Drinks
       <Footer />
-    </>
+    </div>
   );
 }
