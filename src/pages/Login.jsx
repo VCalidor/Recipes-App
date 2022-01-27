@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../css/login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -23,28 +24,26 @@ export default function Login() {
   };
 
   return (
-    <section>
-      <label htmlFor="login-email">
-        Email:
-        <input
-          id="login-email"
-          data-testid="email-input"
-          type="email"
-          value={ email }
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-      </label>
-      <label htmlFor="login-password">
-        Password:
-        <input
-          id="login-password"
-          data-testid="password-input"
-          type="password"
-          value={ password }
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-      </label>
+    <section className="login-section">
+      <h1 id="login-title">Login</h1>
+      <input
+        id="login-email"
+        data-testid="email-input"
+        type="email"
+        placeholder="Email"
+        value={ email }
+        onChange={ ({ target: { value } }) => setEmail(value) }
+      />
+      <input
+        id="login-password"
+        data-testid="password-input"
+        type="password"
+        placeholder="Password"
+        value={ password }
+        onChange={ ({ target: { value } }) => setPassword(value) }
+      />
       <button
+        id="login-btn"
         type="button"
         data-testid="login-submit-btn"
         disabled={ validation() }

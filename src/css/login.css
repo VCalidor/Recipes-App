@@ -1,0 +1,53 @@
+.login-section {
+  background: #FFFFFF;
+  height: 640px;
+  position: relative;
+  width: 360px;
+}
+
+#login-title {
+  align-items: flex-end;
+  color: #000000;
+  display: flex;
+  font-family: Roboto;
+  font-size: 39px;
+  font-style: normal;
+  font-weight: normal;
+  height: 46px;
+  left: 128px;
+  line-height: 46px;
+  position: absolute;
+  top: 79px;
+  width: 97px;
+}
+
+#login-password {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  height: 58px;
+  left: 30px;
+  position: absolute;
+  top: 243px;
+  width: 293px;
+}
+
+#login-email {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  height: 58px;
+  left: 31px;
+  position: absolute;
+  top: 155px;
+  width: 293px;
+}
+
+#login-btn {
+  background: #6CE34F;
+  height: 76px;
+  left: 11px;
+  position: absolute;
+  top: 389px;
+  width: 339px;
+}
