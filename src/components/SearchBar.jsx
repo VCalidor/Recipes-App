@@ -38,7 +38,7 @@ export default function SearchBar() {
         return history.push(`/foods/${resultsAPI[0].idMeal}`);
       } return history.push(`/drinks/${resultsAPI[0].idDrink}`);
     }
-  }, [resultsAPI]);
+  }, [resultsAPI, history]);
 
   const searchButton = async () => {
     switch (radioFilter) {
