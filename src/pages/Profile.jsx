@@ -22,9 +22,11 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
-    <div>
+    <>
       <Header title="Profile" search="" />
-      <h1 data-testid="profile-email">{ user.email }</h1>
+      { user && (
+        <h1 data-testid="profile-email">{ user.email }</h1>
+      ) }
       <section>
         <button
           data-testid="profile-done-btn"
@@ -49,6 +51,6 @@ export default function Profile() {
         </button>
       </section>
       <Footer />
-    </div>
+    </>
   );
 }

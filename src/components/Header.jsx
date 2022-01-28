@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import userLogo from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
-import './Header.css';
+import '../css/Header.css';
 
 function Header(props) {
   const [visible, setVisible] = useState(false);
