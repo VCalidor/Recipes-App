@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   mealsFirstLetterFetch,
   mealsNameFetch,
@@ -15,6 +16,9 @@ let firstLetterR = '';
 export default function SearchBar() {
   const [radioFilter, setRadioFilter] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [resultsAPI, setResultsAPI] = useState([]);
+
+  const history = useHistory();
 
   useEffect(() => {
     if (window.location.href === 'http://localhost:3000/foods') {
@@ -28,24 +32,38 @@ export default function SearchBar() {
     }
   }, []);
 
-  const searchButton = () => {
+  useEffect(() => {
+    if (resultsAPI.length === 1) {
+      if (window.location.href === 'http://localhost:3000/foods') {
+        return history.push(`/foods/${resultsAPI[0].idMeal}`);
+      } return history.push(`/drinks/${resultsAPI[0].idDrink}`);
+    }
+  }, [resultsAPI]);
+
+  const searchButton = async () => {
     switch (radioFilter) {
     case 'mealsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } return mealsFirstLetterFetch(searchInput);
+      } setResultsAPI(await mealsFirstLetterFetch(searchInput));
+      break;
     case 'mealsIngredientR':
-      return mealsIngredientFetch(searchInput);
+      setResultsAPI(await mealsIngredientFetch(searchInput));
+      break;
     case 'mealsNameR':
-      return mealsNameFetch(searchInput);
+      setResultsAPI(await mealsNameFetch(searchInput));
+      break;
     case 'cocktailsNameR':
-      return cocktailsNameFetch(searchInput);
+      setResultsAPI(await cocktailsNameFetch(searchInput));
+      break;
     case 'cocktailsIngredientR':
-      return cocktailsIngredientFetch(searchInput);
+      setResultsAPI(await cocktailsIngredientFetch(searchInput));
+      break;
     case 'cocktailsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } return cocktailsFirstLetterFetch(searchInput);
+      } setResultsAPI(await cocktailsFirstLetterFetch(searchInput));
+      break;
     default:
       break;
     }
