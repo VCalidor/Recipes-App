@@ -13,37 +13,40 @@ import NationalitiesFoods from './pages/NationalitiesFoods';
 import SearchFoodByIngredients from './pages/SearchFoodByIngredients';
 import SearchDrinkByIngredients from './pages/SearchDrinkByIngredients';
 import ExploreDrinks from './pages/ExploreDrinks';
+import MyProvider from './context/MyProvider';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={ Login } />
-        <Route path="/foods" exact component={ Foods } />
-        <Route path="/drinks" exact component={ Drinks } />
-        <Route path="/explore" exact component={ Explore } />
-        <Route path="/done-recipes" exact component={ DoneRecipes } />
-        <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
-        <Route path="/explore/foods" exact component={ ExploreFoods } />
-        <Route path="/explore/drinks" exact component={ ExploreDrinks } />
-        <Route path="/profile" exact component={ Profile } />
-        <Route
-          path="/explore/foods/ingredients"
-          exact
-          component={ SearchFoodByIngredients }
-        />
-        <Route
-          path="/explore/drinks/ingredients"
-          exact
-          component={ SearchDrinkByIngredients }
-        />
-        <Route
-          path="/explore/foods/nationalities"
-          exact
-          component={ NationalitiesFoods }
-        />
-      </Switch>
-    </BrowserRouter>
+    <MyProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={ Login } />
+          <Route path="/foods" exact component={ Foods } />
+          <Route path="/drinks" exact component={ Drinks } />
+          <Route path="/explore" exact component={ Explore } />
+          <Route path="/done-recipes" exact component={ DoneRecipes } />
+          <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
+          <Route path="/explore/foods" exact component={ ExploreFoods } />
+          <Route path="/explore/drinks" exact component={ ExploreDrinks } />
+          <Route path="/profile" exact component={ Profile } />
+          <Route
+            path="/explore/foods/ingredients"
+            exact
+            component={ SearchFoodByIngredients }
+          />
+          <Route
+            path="/explore/drinks/ingredients"
+            exact
+            component={ SearchDrinkByIngredients }
+          />
+          <Route
+            path="/explore/foods/nationalities"
+            exact
+            component={ NationalitiesFoods }
+          />
+        </Switch>
+      </BrowserRouter>
+    </MyProvider>
   );
 }
 
