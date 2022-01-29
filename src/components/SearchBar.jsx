@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import MyContext from '../context/MyContext';
 import {
   mealsFirstLetterFetch,
   mealsNameFetch,
@@ -16,7 +17,7 @@ let firstLetterR = '';
 export default function SearchBar() {
   const [radioFilter, setRadioFilter] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const [resultsAPI, setResultsAPI] = useState([]);
+  const { resultsAPI, setResultsAPI } = useContext(MyContext);
 
   const history = useHistory();
 
@@ -66,6 +67,10 @@ export default function SearchBar() {
       break;
     default:
       break;
+    }
+
+    if (resultsAPI.length === 0) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   };
 
