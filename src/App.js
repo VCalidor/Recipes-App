@@ -8,11 +8,11 @@ import Explore from './pages/Explore';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
-import SearchFoods from './pages/SearchFoods';
+import ExploreFoods from './pages/ExploreFoods';
 import NationalitiesFoods from './pages/NationalitiesFoods';
 import SearchFoodByIngredients from './pages/SearchFoodByIngredients';
 import SearchDrinkByIngredients from './pages/SearchDrinkByIngredients';
-import SearchDrinks from './pages/SearchDrinks';
+import ExploreDrinks from './pages/ExploreDrinks';
 import MyProvider from './context/MyProvider';
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
           <Route path="/explore" exact component={ Explore } />
           <Route path="/done-recipes" exact component={ DoneRecipes } />
           <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
-          <Route path="/explore/foods" exact component={ SearchFoods } />
-          <Route path="/explore/drinks" exact component={ SearchDrinks } />
+          <Route path="/explore/foods" exact component={ ExploreFoods } />
+          <Route path="/explore/drinks" exact component={ ExploreDrinks } />
           <Route path="/profile" exact component={ Profile } />
           <Route
             path="/explore/foods/ingredients"
