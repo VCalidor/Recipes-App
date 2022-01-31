@@ -1,12 +1,16 @@
+const alertString = 'Sorry, we haven\'t found any recipes for these filters.';
+
 export const mealsFirstLetterFetch = async (parameter) => {
   const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${parameter}`;
 
   const { meals } = await fetch(endPoint).then((response) => response.json());
   console.log(meals);
 
-  if (meals) {
-    return meals;
-  } return [];
+  if (!meals) {
+    global.alert(alertString);
+    return [];
+  }
+  return meals;
 };
 
 export const mealsIngredientFetch = async (parameter) => {
@@ -15,9 +19,11 @@ export const mealsIngredientFetch = async (parameter) => {
   const { meals } = await fetch(endPoint).then((response) => response.json());
   console.log(meals);
 
-  if (meals) {
-    return meals;
-  } return [];
+  if (!meals) {
+    global.alert(alertString);
+    return [];
+  }
+  return meals;
 };
 
 export const mealsNameFetch = async (parameter) => {
@@ -26,9 +32,11 @@ export const mealsNameFetch = async (parameter) => {
   const { meals } = await fetch(endPoint).then((response) => response.json());
   console.log(meals);
 
-  if (meals) {
-    return meals;
-  } return [];
+  if (!meals) {
+    global.alert(alertString);
+    return [];
+  }
+  return meals;
 };
 
 export const cocktailsFirstLetterFetch = async (parameter) => {
@@ -37,9 +45,11 @@ export const cocktailsFirstLetterFetch = async (parameter) => {
   const { drinks } = await fetch(endPoint).then((response) => response.json());
   console.log(drinks);
 
-  if (drinks) {
-    return drinks;
-  } return [];
+  if (!drinks) {
+    global.alert(alertString);
+    return [];
+  }
+  return drinks;
 };
 
 export const cocktailsIngredientFetch = async (parameter) => {
@@ -48,9 +58,11 @@ export const cocktailsIngredientFetch = async (parameter) => {
   const { drinks } = await fetch(endPoint).then((response) => response.json());
   console.log(drinks);
 
-  if (drinks) {
-    return drinks;
-  } return [];
+  if (!drinks) {
+    global.alert(alertString);
+    return [];
+  }
+  return drinks;
 };
 
 export const cocktailsNameFetch = async (parameter) => {
@@ -58,7 +70,9 @@ export const cocktailsNameFetch = async (parameter) => {
 
   const { drinks } = await fetch(endPoint).then((response) => response.json());
 
-  if (drinks) {
-    return drinks;
-  } return [];
+  if (!drinks) {
+    global.alert(alertString);
+    return [];
+  }
+  return drinks;
 };

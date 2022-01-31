@@ -68,10 +68,6 @@ export default function SearchBar() {
     default:
       break;
     }
-
-    if (resultsAPI.length === 0) {
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
   };
 
   return (
