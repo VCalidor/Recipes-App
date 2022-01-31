@@ -1,16 +1,20 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/MyContext';
 import RecipeCards from '../components/RecipeCards';
-import { mealsFirstRender } from '../services';
+import { mealsFirstRender, mealsCategoriesFetch } from '../services';
+import CategoriesButtons from '../components/CategoriesButtons';
 
 export default function Foods() {
   const { resultsAPI, setResultsAPI } = useContext(MyContext);
+  const [categories, setCategories] = useState([]);
 
   const firstRenderFetch = async () => {
+    // Funcao para setar no resultsAPI as primeiras meals
     setResultsAPI(await mealsFirstRender());
+    setCategories(await mealsCategoriesFetch());
   };
 
   useEffect(() => {
@@ -23,6 +27,13 @@ export default function Foods() {
   return (
     <div>
       <Header title="Foods" search={ searchIcon } />
+      { categories.map(({ strCategory }, index) => (
+        <CategoriesButtons
+          index={ index }
+          key={ index }
+          category={ strCategory }
+        />
+      ))}
       { newResults.map(({ strMeal, strMealThumb }, index) => (
         <RecipeCards
           index={ index }

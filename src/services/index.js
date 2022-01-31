@@ -9,6 +9,16 @@ export const mealsFirstRender = async () => {
   return meals;
 };
 
+export const mealsCategoriesFetch = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
+  const { meals } = await fetch(endPoint).then((response) => response.json());
+
+  console.log(meals);
+  const five = 5;
+  return meals.filter((_meal, index) => index < five);
+};
+
 export const mealsFirstLetterFetch = async (parameter) => {
   const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${parameter}`;
 
@@ -55,6 +65,16 @@ export const cocktailsFirstRender = async () => {
   console.log(drinks);
 
   return drinks;
+};
+
+export const cocktailsCategoriesFetch = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
+  const { drinks } = await fetch(endPoint).then((response) => response.json());
+
+  console.log(drinks);
+  const five = 5;
+  return drinks.filter((_meal, index) => index < five);
 };
 
 export const cocktailsFirstLetterFetch = async (parameter) => {
