@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function RecipeCards({ index, source, title }) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
-      <img src={ source } alt="" data-testid={ `${index}-card-img` } />
+      <img src={ source } alt={ title } data-testid={ `${index}-card-img` } />
       <h2 data-testid={ `${index}-card-name` }>{ title }</h2>
     </div>
   );

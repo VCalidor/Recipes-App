@@ -1,13 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/MyContext';
 import RecipeCards from '../components/RecipeCards';
+import { cocktailsFirstRender } from '../services';
 
 export default function Drinks() {
+  const { resultsAPI, setResultsAPI } = useContext(MyContext);
+
+  const firstRenderFetch = async () => {
+    setResultsAPI(await cocktailsFirstRender());
+  };
+
+  useEffect(() => {
+    firstRenderFetch();
+  }, []);
+
   const magicNumber = 12;
-  const { resultsAPI } = useContext(MyContext);
   const newResults = resultsAPI.filter((_result, index) => index < magicNumber);
 
   return (

@@ -1,5 +1,14 @@
 const alertString = 'Sorry, we haven\'t found any recipes for these filters.';
 
+export const mealsFirstRender = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
+  const { meals } = await fetch(endPoint).then((response) => response.json());
+  console.log(meals);
+
+  return meals;
+};
+
 export const mealsFirstLetterFetch = async (parameter) => {
   const endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${parameter}`;
 
@@ -37,6 +46,15 @@ export const mealsNameFetch = async (parameter) => {
     return [];
   }
   return meals;
+};
+
+export const cocktailsFirstRender = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+  const { drinks } = await fetch(endPoint).then((response) => response.json());
+  console.log(drinks);
+
+  return drinks;
 };
 
 export const cocktailsFirstLetterFetch = async (parameter) => {
