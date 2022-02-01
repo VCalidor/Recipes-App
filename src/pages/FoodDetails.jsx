@@ -23,8 +23,8 @@ function FoodDetails(props) {
   useEffect(() => {
     getRecipe();
   }, []);
-  
-    const prepareRecipe = (obj) => {
+
+  const prepareRecipe = (obj) => {
     const keys = Object.keys(obj);
     keys.forEach((key) => {
       if (obj[key] === '' || !(obj[key])
@@ -47,12 +47,6 @@ function FoodDetails(props) {
     history.push(`/foods/${idMeal}/in-progress`);
   };
 
-  console.log(reco);
-
-  // data-testid="${index}-ingredient-name-and-measure";
-  // data-testid="video";
-  // d;
-
   return (
     <div>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
@@ -64,7 +58,6 @@ function FoodDetails(props) {
         <img src={ whiteHeart } alt="favorite" />
       </button>
       <h4 data-testid="recipe-category">{strCategory}</h4>
-      <p data-testid="instructions">{strInstructions}</p>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -79,13 +72,20 @@ function FoodDetails(props) {
           ))}
         </ul>
       </section>
+      <p data-testid="instructions">{strInstructions}</p>
+      <section data-testid="video">
+        <h1>colocar video aqui</h1>
+      </section>
       <section>
         <h1>
           Recomendation
         </h1>
         {
           reco.map((rec, index) => (
-            <div key={ `data-testid="${index}-recomendation-card"` }>
+            <div
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
               <img src={ rec.strDrinkThumb } alt="recomendation" />
               <h3>{rec.strAlcoholic}</h3>
               <h3>{rec.strDrink}</h3>

@@ -24,6 +24,23 @@ function DrinkDetails(props) {
     getRecipe();
   }, []);
 
+  const prepareRecipe = (obj) => {
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+      if (obj[key] === '' || !(obj[key])
+      ) {
+        return delete obj[key];
+      }
+    });
+    return obj;
+  };
+
+  const newObj = prepareRecipe(recipe);
+  const ingArr = Object.keys(newObj)
+    .filter((key) => key.includes('strIngredient'));
+  const measureArr = Object.keys(newObj)
+    .filter((key) => key.includes('strMeasure'));
+
   const { strDrink, strDrinkThumb,
     strInstructions, strCategory, strAlcoholic, idDrink } = recipe;
 
@@ -45,12 +62,29 @@ function DrinkDetails(props) {
         <img src={ whiteHeart } alt="favorite" />
       </button>
       <h4 data-testid="recipe-category">{strCategory}</h4>
+      <section>
+        <ul>
+          { ingArr.map((ing, index) => (
+            <li
+              key={ ing }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { newObj[ing] }
+              { ' - ' }
+              { newObj[measureArr[index]] }
+            </li>
+          ))}
+        </ul>
+      </section>
       <p data-testid="instructions">{strInstructions}</p>
       <section>
         <h1>recomendation</h1>
         {
           reco.map((rec, index) => (
-            <div key={ `data-testid="${index}-recomendation-card"` }>
+            <div
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
               <img src={ rec.strMealThumb } alt="recomendation" />
               <h3>{rec.strCategory}</h3>
               <h3>{rec.strMeal}</h3>
