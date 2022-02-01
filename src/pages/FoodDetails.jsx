@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { foodIdFetch } from '../services/index';
+import { useHistory } from 'react-router-dom';
+import { cocktailsNameFetch, foodDetailsFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
 function FoodDetails(props) {
-  const { match: { params: { id } } } = props;
-  const [foodData, setFoodData] = useState([{}]);
+  const [recipe, setRecipe] = useState([]);
+  const [reco, setReco] = useState([]);
+  const history = useHistory();
+
+  const getRecipe = async () => {
+    const maxCards = 6;
+    const { match } = props;
+    const { id } = match.params;
+    const result = await foodDetailsFetch(id);
+    const recomendation = await cocktailsNameFetch('');
+    setRecipe(result[0]);
+    setReco(recomendation.slice(0, maxCards));
+  };
 
   useEffect(() => {
-    async function fetchData() {
-      setFoodData(await foodIdFetch(id));
-    }
-    fetchData();
-  }, [id]);
-
-  const prepareRecipe = (obj) => {
+    getRecipe();
+  }, []);
+  
+    const prepareRecipe = (obj) => {
     const keys = Object.keys(obj);
     keys.forEach((key) => {
       if (obj[key] === '' || !(obj[key])
@@ -26,60 +35,36 @@ function FoodDetails(props) {
     return obj;
   };
 
-  const newObj = prepareRecipe(foodData[0]);
+  const newObj = prepareRecipe(recipe);
   const ingArr = Object.keys(newObj)
     .filter((key) => key.includes('strIngredient'));
   const measureArr = Object.keys(newObj)
     .filter((key) => key.includes('strMeasure'));
 
-  const {
-    strMeal,
-    strCategory,
-    strMealThumb,
-    strInstructions,
-  } = foodData[0];
+  const { strMeal, strMealThumb, strCategory, strInstructions, idMeal } = recipe;
+
+  const startRecipe = () => {
+    history.push(`/foods/${idMeal}/in-progress`);
+  };
+
+  console.log(reco);
+
+  // data-testid="${index}-ingredient-name-and-measure";
+  // data-testid="video";
+  // d;
 
   return (
-    <>
-      <section>
-        <img
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt={ strMeal }
-        />
-      </section>
-      <section>
-        <h2
-          data-testid="recipe-title"
-        >
-          { strMeal }
-        </h2>
-        <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            <img
-              src={ shareIcon }
-              alt="share"
-            />
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            <img
-              src={ whiteHeart }
-              alt="favorite"
-            />
-          </button>
-        </div>
-        <p
-          data-testid="recipe-category"
-        >
-          { strCategory }
-        </p>
-      </section>
+    <div>
+      <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
+      <h2 data-testid="recipe-title">{strMeal}</h2>
+      <button data-testid="share-btn" type="button">
+        <img src={ shareIcon } alt="share" />
+      </button>
+      <button data-testid="favorite-btn" type="button">
+        <img src={ whiteHeart } alt="favorite" />
+      </button>
+      <h4 data-testid="recipe-category">{strCategory}</h4>
+      <p data-testid="instructions">{strInstructions}</p>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -95,39 +80,29 @@ function FoodDetails(props) {
         </ul>
       </section>
       <section>
-        <p
-          data-testid="instructions"
-        >
-          { strInstructions }
-        </p>
-      </section>
-      <section data-testid="video">
-        <h1>colocar o vídeo</h1>
-      </section>
-      <section>
-        <h1
-          data-testid="0-recomendation-card"
-        >
-          map de cards de recomendação
+        <h1>
+          Recomendation
         </h1>
+        {
+          reco.map((rec, index) => (
+            <div key={ `data-testid="${index}-recomendation-card"` }>
+              <img src={ rec.strDrinkThumb } alt="recomendation" />
+              <h3>{rec.strAlcoholic}</h3>
+              <h3>{rec.strDrink}</h3>
+            </div>
+          ))
+        }
       </section>
-      <section>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Start Recipe
-        </button>
-      </section>
-    </>
+      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
+        Start Recipe
+      </button>
+    </div>
   );
 }
 
 FoodDetails.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
+    params: PropTypes.objectOf(PropTypes.string),
   }).isRequired,
 };
 
