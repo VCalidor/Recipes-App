@@ -5,10 +5,13 @@ import { cocktailsNameFetch, foodDetailsFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function FoodDetails(props) {
   const [recipe, setRecipe] = useState([]);
   const [reco, setReco] = useState([]);
   const history = useHistory();
+  const [visible, setVisible] = useState(false);
 
   const getRecipe = async () => {
     const maxCards = 6;
@@ -49,17 +52,29 @@ function FoodDetails(props) {
 
   console.log(reco);
 
-  // data-testid="${index}-ingredient-name-and-measure";
-  // data-testid="video";
-  // d;
+  const shareAlert = () => {
+    copy(window.location.href);
+    if (visible === true) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
 
   return (
     <div>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
       <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button data-testid="share-btn" type="button">
+      <button
+        onClick={ shareAlert }
+        data-testid="share-btn"
+        type="button"
+      >
         <img src={ shareIcon } alt="share" />
       </button>
+      { visible === true && (
+        <p>Link copied!</p>
+      ) }
       <button data-testid="favorite-btn" type="button">
         <img src={ whiteHeart } alt="favorite" />
       </button>
