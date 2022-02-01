@@ -112,7 +112,6 @@ function DrinkDetails(props) {
           ))
         }
       </section>
-      <h1 data-testid="video">Colocar video</h1>
       <button
         className="start-recipe"
         onClick={ startRecipe }

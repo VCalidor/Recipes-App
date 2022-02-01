@@ -8,7 +8,7 @@ import whiteHeart from '../images/whiteHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function FoodDetails(props) {
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState({ strYoutube: 'https://www.youtube.com/watch?v=VVnZd8A84z4' });
   const [reco, setReco] = useState([]);
   const history = useHistory();
   const [visible, setVisible] = useState(false);
@@ -22,6 +22,8 @@ function FoodDetails(props) {
     setRecipe(result[0]);
     setReco(recomendation.slice(0, maxCards));
   };
+
+  console.log(recipe);
 
   useEffect(() => {
     getRecipe();
@@ -44,7 +46,8 @@ function FoodDetails(props) {
   const measureArr = Object.keys(newObj)
     .filter((key) => key.includes('strMeasure'));
 
-  const { strMeal, strMealThumb, strCategory, strInstructions, idMeal } = recipe;
+  const { strMeal, strMealThumb, strYoutube,
+    strCategory, strInstructions, idMeal } = recipe;
 
   const startRecipe = () => {
     history.push(`/foods/${idMeal}/in-progress`);
@@ -94,7 +97,13 @@ function FoodDetails(props) {
       </section>
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <p data-testid="instructions">{strInstructions}</p>
-      <h1 data-testid="video">Colocar video</h1>
+      <iframe
+        src={ strYoutube.replace('watch?v=', 'embed/') }
+        // frameBorder="0"
+        allowFullScreen
+        title="video"
+        data-testid="video"
+      />
       <section>
         <h1>
           Recomendation
