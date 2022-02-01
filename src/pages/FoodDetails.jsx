@@ -1,24 +1,121 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { foodIdFetch } from '../services/index';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
 
 function FoodDetails(props) {
   const { match: { params: { id } } } = props;
-  const [foodData, setFoodData] = useState({ id });
+  const [foodData, setFoodData] = useState([{}]);
 
   useEffect(() => {
     async function fetchData() {
       setFoodData(await foodIdFetch(id));
     }
     fetchData();
-  }, []);
+  }, [id]);
 
-  console.log(foodData);
+  const prepareRecipe = (obj) => {
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+      if (obj[key] === '' || !(obj[key])
+      ) {
+        return delete obj[key];
+      }
+    });
+    return obj;
+  };
+
+  const newObj = prepareRecipe(foodData[0]);
+  const ingArr = Object.keys(newObj)
+    .filter((key) => key.includes('strIngredient'));
+  const measureArr = Object.keys(newObj)
+    .filter((key) => key.includes('strMeasure'));
+
+  const {
+    strMeal,
+    strCategory,
+    strMealThumb,
+    strInstructions,
+  } = foodData[0];
 
   return (
-    <div>
-      <p>Estamos na details</p>
-    </div>
+    <>
+      <section>
+        <img
+          data-testid="recipe-photo"
+          src={ strMealThumb }
+          alt={ strMeal }
+        />
+      </section>
+      <section>
+        <h2
+          data-testid="recipe-title"
+        >
+          { strMeal }
+        </h2>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+          >
+            <img
+              src={ shareIcon }
+              alt="share"
+            />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+          >
+            <img
+              src={ whiteHeart }
+              alt="favorite"
+            />
+          </button>
+        </div>
+        <p
+          data-testid="recipe-category"
+        >
+          { strCategory }
+        </p>
+      </section>
+      <section>
+        <ul>
+          { ingArr.map((ing, index) => (
+            <li
+              key={ ing }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { newObj[ing] }
+              { ' - ' }
+              { newObj[measureArr[index]] }
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <p>{ strInstructions }</p>
+      </section>
+      <section data-testid="video">
+        <h1>colocar o vídeo</h1>
+      </section>
+      <section>
+        <h1
+          data-testid="0-recomendation-card"
+        >
+          map de cards de recomendação
+        </h1>
+      </section>
+      <section>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+        </button>
+      </section>
+    </>
   );
 }
 
