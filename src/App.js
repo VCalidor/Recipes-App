@@ -28,10 +28,10 @@ function App() {
           <Route path="/" exact component={ Login } />
           <Route path="/foods" exact component={ Foods } />
           <Route path="/foods/:id" exact component={ FoodDetails } />
-          <Route path="/drinks/:id" exact component={ DrinkDetails } />
-          <Route path="/foods/:id/in-progress" exact component={ FoodInProgress } />
-          <Route path="/drinks/:id/in-progress" exact component={ DrinkInProgress } />
+          <Route path="/foods/:id/in-progress" exact component={ FoodInProgress } />    
           <Route path="/drinks" exact component={ Drinks } />
+          <Route path="/drinks/:id" exact component={ DrinkDetails } />
+          <Route path="/drinks/:id/in-progress" exact component={ DrinkInProgress } />  
           <Route path="/explore" exact component={ Explore } />
           <Route path="/done-recipes" exact component={ DoneRecipes } />
           <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />

@@ -23,6 +23,23 @@ function FoodDetails(props) {
   useEffect(() => {
     getRecipe();
   }, []);
+  
+    const prepareRecipe = (obj) => {
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+      if (obj[key] === '' || !(obj[key])
+      ) {
+        return delete obj[key];
+      }
+    });
+    return obj;
+  };
+
+  const newObj = prepareRecipe(recipe);
+  const ingArr = Object.keys(newObj)
+    .filter((key) => key.includes('strIngredient'));
+  const measureArr = Object.keys(newObj)
+    .filter((key) => key.includes('strMeasure'));
 
   const { strMeal, strMealThumb, strCategory, strInstructions, idMeal } = recipe;
 
@@ -48,6 +65,20 @@ function FoodDetails(props) {
       </button>
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <p data-testid="instructions">{strInstructions}</p>
+      <section>
+        <ul>
+          { ingArr.map((ing, index) => (
+            <li
+              key={ ing }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { newObj[ing] }
+              { ' - ' }
+              { newObj[measureArr[index]] }
+            </li>
+          ))}
+        </ul>
+      </section>
       <section>
         <h1>
           Recomendation
