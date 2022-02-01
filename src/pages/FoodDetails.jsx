@@ -47,6 +47,12 @@ function FoodDetails(props) {
     history.push(`/foods/${idMeal}/in-progress`);
   };
 
+  console.log(reco);
+
+  // data-testid="${index}-ingredient-name-and-measure";
+  // data-testid="video";
+  // d;
+
   return (
     <div>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
@@ -57,7 +63,6 @@ function FoodDetails(props) {
       <button data-testid="favorite-btn" type="button">
         <img src={ whiteHeart } alt="favorite" />
       </button>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -72,10 +77,9 @@ function FoodDetails(props) {
           ))}
         </ul>
       </section>
+      <h4 data-testid="recipe-category">{strCategory}</h4>
       <p data-testid="instructions">{strInstructions}</p>
-      <section data-testid="video">
-        <h1>colocar video aqui</h1>
-      </section>
+      <h1 data-testid="video">Colocar video</h1>
       <section>
         <h1>
           Recomendation
@@ -93,7 +97,12 @@ function FoodDetails(props) {
           ))
         }
       </section>
-      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
+      <button
+        className="start-recipe"
+        onClick={ startRecipe }
+        data-testid="start-recipe-btn"
+        type="button"
+      >
         Start Recipe
       </button>
     </div>

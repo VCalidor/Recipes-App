@@ -54,14 +54,17 @@ function DrinkDetails(props) {
     <div>
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="food" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
-      <h4>{strAlcoholic}</h4>
+      <section data-testid="recipe-category">
+        <h4>{strAlcoholic}</h4>
+        <h4>{strCategory}</h4>
+      </section>
+
       <button data-testid="share-btn" type="button">
         <img src={ shareIcon } alt="share" />
       </button>
       <button data-testid="favorite-btn" type="button">
         <img src={ whiteHeart } alt="favorite" />
       </button>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -92,7 +95,13 @@ function DrinkDetails(props) {
           ))
         }
       </section>
-      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
+      <h1 data-testid="video">Colocar video</h1>
+      <button
+        className="start-recipe"
+        onClick={ startRecipe }
+        data-testid="start-recipe-btn"
+        type="button"
+      >
         Start Recipe
       </button>
     </div>
