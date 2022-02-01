@@ -114,3 +114,17 @@ export const cocktailsNameFetch = async (parameter) => {
   }
   return drinks;
 };
+
+export const foodDetailsFetch = async (parameter) => {
+  const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${parameter}`;
+
+  const { meals } = await fetch(endPoint).then((response) => response.json());
+  return meals;
+};
+
+export const drinksDetailsFetch = async (parameter) => {
+  const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${parameter}`;
+
+  const { drinks } = await fetch(endPoint).then((response) => response.json());
+  return drinks;
+};
