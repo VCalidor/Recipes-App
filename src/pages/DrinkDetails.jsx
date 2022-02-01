@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { drinksDetailsFetch, mealsNameFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
@@ -7,6 +8,7 @@ import whiteHeart from '../images/whiteHeartIcon.svg';
 function DrinkDetails(props) {
   const [recipe, setRecipe] = useState('');
   const [reco, setReco] = useState('');
+  const history = useHistory();
 
   const getRecipe = async () => {
     const magicNumber = 6;
@@ -23,7 +25,12 @@ function DrinkDetails(props) {
   }, []);
 
   const { strDrink, strDrinkThumb,
-    strInstructions, strCategory, strAlcoholic } = recipe;
+    strInstructions, strCategory, strAlcoholic, idDrink } = recipe;
+
+  const startRecipe = () => {
+    history.push(`/drinks/${idDrink}/in-progress`);
+  };
+
   console.log(reco);
 
   return (
@@ -51,7 +58,7 @@ function DrinkDetails(props) {
           ))
         } */}
       </section>
-      <button data-testid="start-recipe-btn" type="button">
+      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
         Start Recipe
       </button>
     </div>

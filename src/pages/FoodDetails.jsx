@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { cocktailsNameFetch, foodDetailsFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
@@ -7,6 +8,7 @@ import whiteHeart from '../images/whiteHeartIcon.svg';
 function FoodDetails(props) {
   const [recipe, setRecipe] = useState('');
   const [reco, setReco] = useState('');
+  const history = useHistory();
 
   const getRecipe = async () => {
     const magicNumber = 6;
@@ -18,13 +20,17 @@ function FoodDetails(props) {
     setReco(recomendation.slice(0, magicNumber));
   };
 
-  console.log(reco);
-
   useEffect(() => {
     getRecipe();
   }, []);
 
-  const { strMeal, strMealThumb, strCategory, strInstructions } = recipe;
+  const { strMeal, strMealThumb, strCategory, strInstructions, idMeal } = recipe;
+
+  const startRecipe = () => {
+    history.push(`/foods/${idMeal}/in-progress`);
+  };
+
+  console.log(reco);
 
   // data-testid="${index}-ingredient-name-and-measure";
   // data-testid="video";
@@ -56,7 +62,7 @@ function FoodDetails(props) {
           ))
         } */}
       </section>
-      <button data-testid="start-recipe-btn" type="button">
+      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
         Start Recipe
       </button>
     </div>
