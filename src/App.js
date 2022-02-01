@@ -16,6 +16,7 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import MyProvider from './context/MyProvider';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -47,6 +48,11 @@ function App() {
             path="/explore/foods/nationalities"
             exact
             component={ NationalitiesFoods }
+          />
+          <Route
+            path="/explore/drinks/nationalities"
+            exact
+            component={ NotFound }
           />
         </Switch>
       </BrowserRouter>
