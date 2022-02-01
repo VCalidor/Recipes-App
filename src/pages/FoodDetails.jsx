@@ -95,7 +95,11 @@ function FoodDetails(props) {
         </ul>
       </section>
       <section>
-        <p>{ strInstructions }</p>
+        <p
+          data-testid="instructions"
+        >
+          { strInstructions }
+        </p>
       </section>
       <section data-testid="video">
         <h1>colocar o vídeo</h1>

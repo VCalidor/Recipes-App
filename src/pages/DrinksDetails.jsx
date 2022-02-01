@@ -97,7 +97,11 @@ function DrinkDetails(props) {
         </ul>
       </section>
       <section>
-        <p>{ strInstructions }</p>
+        <p
+          data-testid="instructions"
+        >
+          { strInstructions }
+        </p>
       </section>
       <section>
         <h1
