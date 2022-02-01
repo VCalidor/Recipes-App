@@ -14,6 +14,8 @@ import SearchFoodByIngredients from './pages/SearchFoodByIngredients';
 import SearchDrinkByIngredients from './pages/SearchDrinkByIngredients';
 import ExploreDrinks from './pages/ExploreDrinks';
 import MyProvider from './context/MyProvider';
+import FoodDetails from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinksDetails';
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/foods" exact component={ Foods } />
+          <Route path="/foods/:id" exact component={ FoodDetails } />
           <Route path="/drinks" exact component={ Drinks } />
+          <Route path="/drinks/:id" exact component={ DrinkDetails } />
           <Route path="/explore" exact component={ Explore } />
           <Route path="/done-recipes" exact component={ DoneRecipes } />
           <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
