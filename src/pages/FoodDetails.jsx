@@ -6,18 +6,18 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
 function FoodDetails(props) {
-  const [recipe, setRecipe] = useState('');
-  const [reco, setReco] = useState('');
+  const [recipe, setRecipe] = useState([]);
+  const [reco, setReco] = useState([]);
   const history = useHistory();
 
   const getRecipe = async () => {
-    const magicNumber = 6;
+    const maxCards = 6;
     const { match } = props;
     const { id } = match.params;
     const result = await foodDetailsFetch(id);
     const recomendation = await cocktailsNameFetch('');
     setRecipe(result[0]);
-    setReco(recomendation.slice(0, magicNumber));
+    setReco(recomendation.slice(0, maxCards));
   };
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function FoodDetails(props) {
         <h1>
           Recomendation
         </h1>
-        {/* {
+        {
           reco.map((rec, index) => (
             <div key={ `data-testid="${index}-recomendation-card"` }>
               <img src={ rec.strDrinkThumb } alt="recomendation" />
@@ -60,7 +60,7 @@ function FoodDetails(props) {
               <h3>{rec.strDrink}</h3>
             </div>
           ))
-        } */}
+        }
       </section>
       <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
         Start Recipe
