@@ -14,6 +14,11 @@ import SearchFoodByIngredients from './pages/SearchFoodByIngredients';
 import SearchDrinkByIngredients from './pages/SearchDrinkByIngredients';
 import ExploreDrinks from './pages/ExploreDrinks';
 import MyProvider from './context/MyProvider';
+import FoodDetails from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinkDetails';
+import NotFound from './pages/NotFound';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 
 function App() {
   return (
@@ -22,6 +27,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/foods" exact component={ Foods } />
+          <Route path="/foods/:id" exact component={ FoodDetails } />
+          <Route path="/drinks/:id" exact component={ DrinkDetails } />
+          <Route path="/foods/:id/in-progress" exact component={ FoodInProgress } />
+          <Route path="/drinks/:id/in-progress" exact component={ DrinkInProgress } />
           <Route path="/drinks" exact component={ Drinks } />
           <Route path="/explore" exact component={ Explore } />
           <Route path="/done-recipes" exact component={ DoneRecipes } />
@@ -43,6 +52,11 @@ function App() {
             path="/explore/foods/nationalities"
             exact
             component={ NationalitiesFoods }
+          />
+          <Route
+            path="/explore/drinks/nationalities"
+            exact
+            component={ NotFound }
           />
         </Switch>
       </BrowserRouter>

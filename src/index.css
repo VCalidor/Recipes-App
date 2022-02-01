@@ -20,3 +20,7 @@ code {
   position: fixed;
   width: 360px;
 }
+
+.start-recipe {
+  position: fixed;
+}

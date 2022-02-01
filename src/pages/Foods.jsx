@@ -34,11 +34,12 @@ export default function Foods() {
           category={ strCategory }
         />
       ))}
-      { newResults.map(({ strMeal, strMealThumb }, index) => (
+      { newResults.map(({ strMeal, strMealThumb, idMeal }, index) => (
         <RecipeCards
           index={ index }
           title={ strMeal }
           source={ strMealThumb }
+          idMeal={ idMeal }
           key={ index }
         />
       ))}
