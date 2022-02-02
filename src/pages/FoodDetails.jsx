@@ -5,10 +5,13 @@ import { cocktailsNameFetch, foodDetailsFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function FoodDetails(props) {
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState({ strYoutube: 'https://www.youtube.com/watch?v=VVnZd8A84z4' });
   const [reco, setReco] = useState([]);
   const history = useHistory();
+  const [visible, setVisible] = useState(false);
 
   const getRecipe = async () => {
     const maxCards = 6;
@@ -19,6 +22,8 @@ function FoodDetails(props) {
     setRecipe(result[0]);
     setReco(recomendation.slice(0, maxCards));
   };
+
+  console.log(recipe);
 
   useEffect(() => {
     getRecipe();
@@ -41,23 +46,41 @@ function FoodDetails(props) {
   const measureArr = Object.keys(newObj)
     .filter((key) => key.includes('strMeasure'));
 
-  const { strMeal, strMealThumb, strCategory, strInstructions, idMeal } = recipe;
+  const { strMeal, strMealThumb, strYoutube,
+    strCategory, strInstructions, idMeal } = recipe;
 
   const startRecipe = () => {
     history.push(`/foods/${idMeal}/in-progress`);
+  };
+
+  console.log(reco);
+
+  const shareAlert = () => {
+    copy(window.location.href);
+    if (visible === true) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
   };
 
   return (
     <div>
       <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
       <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button data-testid="share-btn" type="button">
+      <button
+        onClick={ shareAlert }
+        data-testid="share-btn"
+        type="button"
+      >
         <img src={ shareIcon } alt="share" />
       </button>
+      { visible === true && (
+        <p>Link copied!</p>
+      ) }
       <button data-testid="favorite-btn" type="button">
         <img src={ whiteHeart } alt="favorite" />
       </button>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -72,10 +95,15 @@ function FoodDetails(props) {
           ))}
         </ul>
       </section>
+      <h4 data-testid="recipe-category">{strCategory}</h4>
       <p data-testid="instructions">{strInstructions}</p>
-      <section data-testid="video">
-        <h1>colocar video aqui</h1>
-      </section>
+      <iframe
+        src={ strYoutube.replace('watch?v=', 'embed/') }
+        // frameBorder="0"
+        allowFullScreen
+        title="video"
+        data-testid="video"
+      />
       <section>
         <h1>
           Recomendation
@@ -93,7 +121,12 @@ function FoodDetails(props) {
           ))
         }
       </section>
-      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
+      <button
+        className="start-recipe"
+        onClick={ startRecipe }
+        data-testid="start-recipe-btn"
+        type="button"
+      >
         Start Recipe
       </button>
     </div>

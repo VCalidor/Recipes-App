@@ -5,10 +5,13 @@ import { drinksDetailsFetch, mealsNameFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function DrinkDetails(props) {
   const [recipe, setRecipe] = useState([]);
   const [reco, setReco] = useState([]);
   const history = useHistory();
+  const [visible, setVisible] = useState(false);
 
   const getRecipe = async () => {
     const maxCards = 6;
@@ -48,20 +51,37 @@ function DrinkDetails(props) {
     history.push(`/drinks/${idDrink}/in-progress`);
   };
 
-  console.log(reco);
+  const shareAlert = () => {
+    copy(window.location.href);
+    if (visible === true) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
 
   return (
     <div>
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="food" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
-      <h4>{strAlcoholic}</h4>
-      <button data-testid="share-btn" type="button">
+      <section data-testid="recipe-category">
+        <h4>{strAlcoholic}</h4>
+        <h4>{strCategory}</h4>
+      </section>
+
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ shareAlert }
+      >
         <img src={ shareIcon } alt="share" />
       </button>
+      { visible === true && (
+        <p>Link copied!</p>
+      ) }
       <button data-testid="favorite-btn" type="button">
         <img src={ whiteHeart } alt="favorite" />
       </button>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
       <section>
         <ul>
           { ingArr.map((ing, index) => (
@@ -92,7 +112,12 @@ function DrinkDetails(props) {
           ))
         }
       </section>
-      <button onClick={ startRecipe } data-testid="start-recipe-btn" type="button">
+      <button
+        className="start-recipe"
+        onClick={ startRecipe }
+        data-testid="start-recipe-btn"
+        type="button"
+      >
         Start Recipe
       </button>
     </div>
