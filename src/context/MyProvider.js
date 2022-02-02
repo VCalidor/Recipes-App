@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import MyContext from './MyContext';
 
 export default function MyProvider({ children }) {
-  const [resultsAPI, setResultsAPI] = useState([]);
+  const [resultsAPI, setResultsAPI] = useState([{
+    idMeal: undefined,
+    idDrink: undefined,
+  }]);
   const store = {
     resultsAPI,
     setResultsAPI,

@@ -27,22 +27,28 @@ export default function Foods() {
   return (
     <div>
       <Header title="Foods" search={ searchIcon } />
-      { categories.map(({ strCategory }, index) => (
-        <CategoriesButtons
-          index={ index }
-          key={ index }
-          category={ strCategory }
-        />
-      ))}
-      { newResults.map(({ strMeal, strMealThumb, idMeal }, index) => (
-        <RecipeCards
-          index={ index }
-          title={ strMeal }
-          source={ strMealThumb }
-          idMeal={ idMeal }
-          key={ index }
-        />
-      ))}
+      <section>
+        { categories.map(({ strCategory }, index) => (
+          <CategoriesButtons
+            index={ index }
+            key={ index }
+            category={ strCategory }
+          />
+        ))}
+      </section>
+      <section>
+        { !newResults[0].idDrink && (
+          newResults.map(({ strMeal, strMealThumb, idMeal }, index) => (
+            <RecipeCards
+              index={ index }
+              title={ strMeal }
+              source={ strMealThumb }
+              idDrink=""
+              idMeal={ idMeal }
+              key={ index }
+            />
+          )))}
+      </section>
       <Footer />
     </div>
   );

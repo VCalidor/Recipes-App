@@ -1,0 +1,15 @@
+.recipe-cards {
+  height: 100px;
+  width: 100px;
+}
+
+.categories-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+}

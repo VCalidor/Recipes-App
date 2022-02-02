@@ -23,26 +23,25 @@ export default function Drinks() {
 
   const magicNumber = 12;
   const newResults = resultsAPI.filter((_result, index) => index < magicNumber);
+  console.log(newResults);
 
   return (
     <div>
       <Header title="Drinks" search={ searchIcon } />
-      { categories.map(({ strCategory }, index) => (
-        <CategoriesButtons
-          index={ index }
-          key={ index }
-          category={ strCategory }
-        />
+      {categories.map(({ strCategory }, index) => (
+        <CategoriesButtons index={ index } key={ index } category={ strCategory } />
       ))}
-      { newResults.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-        <RecipeCards
-          index={ index }
-          title={ strDrink }
-          source={ strDrinkThumb }
-          idDrink={ idDrink }
-          key={ index }
-        />
-      ))}
+      {!newResults[0].idMeal && (
+        newResults.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+          <RecipeCards
+            index={ index }
+            title={ strDrink }
+            source={ strDrinkThumb }
+            idMeal=""
+            idDrink={ idDrink }
+            key={ index }
+          />
+        )))}
       <Footer />
     </div>
   );
