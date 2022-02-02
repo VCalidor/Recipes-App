@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { randomMealFetch } from '../services';
 
 export default function SearchFoods() {
   const history = useHistory();
@@ -12,6 +13,11 @@ export default function SearchFoods() {
 
   const toNacionalityPage = () => {
     history.push('/explore/foods/nationalities');
+  };
+
+  const surpriseMeFood = async () => {
+    const result = await randomMealFetch();
+    history.push(`/foods/${result}`);
   };
 
   return (
@@ -32,7 +38,13 @@ export default function SearchFoods() {
         >
           By Nationality
         </button>
-        <button data-testid="explore-surprise" type="button">Surprise me!</button>
+        <button
+          onClick={ surpriseMeFood }
+          data-testid="explore-surprise"
+          type="button"
+        >
+          Surprise me!
+        </button>
       </div>
       <Footer />
     </>
