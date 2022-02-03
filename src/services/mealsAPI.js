@@ -1,6 +1,7 @@
 import {
   mealsCateg,
   mealsCategRecipe,
+  mealsDrop,
   mealsFirstLetter,
   mealsIng,
   mealsName,
@@ -25,6 +26,8 @@ const mealsAPI = async (endpoint, parameter = '') => {
       global.alert(alertString);
       return [];
     } return meals;
+  case mealsDrop:
+    return meals.map((meal) => meal.strArea);
   default:
     return meals;
   }
