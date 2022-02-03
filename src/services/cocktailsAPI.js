@@ -8,7 +8,6 @@ import {
 
 const five = 5;
 const doze = 12;
-
 const alertString = 'Sorry, we haven\'t found any recipes for these filters.';
 
 const cocktailsAPI = async (endpoint, parameter = '') => {
@@ -19,7 +18,10 @@ const cocktailsAPI = async (endpoint, parameter = '') => {
     return drinks.filter((_meal, index) => index < five);
   case drinksCategRecipe:
     return drinks.filter((_meal, index) => index < doze);
-  case drinksFirstLetter || drinksIng || drinksName:
+  case drinksFirstLetter:
+  case drinksIng:
+  case drinksName:
+    console.log(drinks);
     if (!drinks) {
       global.alert(alertString);
       return [];

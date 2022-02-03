@@ -24,7 +24,6 @@ export default function Drinks() {
   }, []);
 
   const magicNumber = 12;
-  const newResults = globalDrinks.filter((_result, index) => index < magicNumber);
 
   return (
     <div>
@@ -32,17 +31,17 @@ export default function Drinks() {
       {categories.map(({ strCategory }, index) => (
         <CategoriesButtons index={ index } key={ index } category={ strCategory } />
       ))}
-      {globalDrinks.length > 0 && (
-        newResults.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-          <RecipeCards
-            index={ index }
-            title={ strDrink }
-            source={ strDrinkThumb }
-            idMeal=""
-            idDrink={ idDrink }
-            key={ index }
-          />
-        )))}
+      {globalDrinks && (
+        globalDrinks.filter((_result, index) => index < magicNumber)
+          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+            <RecipeCards
+              index={ index }
+              title={ strDrink }
+              source={ strDrinkThumb }
+              identificador={ idDrink }
+              key={ index }
+            />
+          )))}
       <Footer />
     </div>
   );

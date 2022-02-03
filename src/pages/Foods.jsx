@@ -24,7 +24,6 @@ export default function Foods() {
   }, []);
 
   const magicNumber = 12;
-  const newResults = globalFoods.filter((_result, index) => index < magicNumber);
 
   return (
     <div>
@@ -39,17 +38,17 @@ export default function Foods() {
         ))}
       </section>
       <section>
-        { globalFoods.length > 0 && (
-          newResults.map(({ strMeal, strMealThumb, idMeal }, index) => (
-            <RecipeCards
-              index={ index }
-              title={ strMeal }
-              source={ strMealThumb }
-              idDrink=""
-              idMeal={ idMeal }
-              key={ index }
-            />
-          )))}
+        { globalFoods && (
+          globalFoods.filter((_result, index) => index < magicNumber)
+            .map(({ strMeal, strMealThumb, idMeal }, index) => (
+              <RecipeCards
+                index={ index }
+                title={ strMeal }
+                source={ strMealThumb }
+                identificador={ idMeal }
+                key={ index }
+              />
+            )))}
       </section>
       <Footer />
     </div>

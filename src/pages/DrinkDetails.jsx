@@ -1,127 +1,75 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeart from '../images/whiteHeartIcon.svg';
 import cocktailsAPI from '../services/cocktailsAPI';
 import { drinksId, mealsName } from '../data';
 import mealsAPI from '../services/mealsAPI';
+import MyContext from '../context/MyContext';
+import DetailsCard from '../components/DetailsCard';
 
-const copy = require('clipboard-copy');
-
-function DrinkDetails(props) {
-  const [recipe, setRecipe] = useState([]);
+function DrinkDetails({ match: { params: { id } } }) {
+  const { globalDrinks } = useContext(MyContext);
+  const [recipe, setRecipe] = useState(() => (
+    globalDrinks.filter((drink) => drink.idDrink === id)
+  ));
   const [reco, setReco] = useState([]);
-  const history = useHistory();
-  const [visible, setVisible] = useState(false);
+
+  const prepareRecipe = (arr) => {
+    const keys = Object.keys(arr[0]);
+    keys.forEach((key) => {
+      if (arr[0][key] === '' || !(arr[0][key]) || arr[0][key] === ' ') {
+        return delete arr[0][key];
+      }
+    });
+    const ingArr = Object.keys(arr[0])
+      .filter((key) => key.includes('strIngredient'));
+    const measureArr = Object.keys(arr[0])
+      .filter((key) => key.includes('strMeasure'));
+    const newObj = {
+      ing: ingArr,
+      measure: measureArr,
+      rec: arr[0],
+    };
+    return newObj;
+  };
 
   const getRecipe = async () => {
+    setRecipe(await cocktailsAPI(drinksId, id));
+  };
+  const getReco = async () => {
     const maxCards = 6;
-    const { match } = props;
-    const { id } = match.params;
-    const result = await cocktailsAPI(drinksId, id);
     const recomendation = await mealsAPI(mealsName, '');
-    setRecipe(result[0]);
     setReco(recomendation.slice(0, maxCards));
   };
 
+  const setDetailsProps = () => {
+    const { strDrink, strDrinkThumb, strAlcoholic,
+      strCategory, strInstructions, idDrink } = recipe[0];
+    return {
+      image: strDrinkThumb,
+      title: strDrink,
+      newObj: prepareRecipe(recipe),
+      category: strCategory,
+      alcoholic: strAlcoholic,
+      instructions: strInstructions,
+      identi: idDrink,
+      reco,
+    };
+  };
+
   useEffect(() => {
-    getRecipe();
-  }, []);
-
-  const prepareRecipe = (obj) => {
-    const keys = Object.keys(obj);
-    keys.forEach((key) => {
-      if (obj[key] === '' || !(obj[key])
-      ) {
-        return delete obj[key];
-      }
-    });
-    return obj;
-  };
-
-  const newObj = prepareRecipe(recipe);
-  const ingArr = Object.keys(newObj)
-    .filter((key) => key.includes('strIngredient'));
-  const measureArr = Object.keys(newObj)
-    .filter((key) => key.includes('strMeasure'));
-
-  const { strDrink, strDrinkThumb,
-    strInstructions, strCategory, strAlcoholic, idDrink } = recipe;
-
-  const startRecipe = () => {
-    history.push(`/drinks/${idDrink}/in-progress`);
-  };
-
-  const shareAlert = () => {
-    copy(window.location.href);
-    if (visible === true) {
-      setVisible(false);
-    } else {
-      setVisible(true);
+    if (recipe.length === 0) {
+      getRecipe();
     }
-  };
+    getReco();
+  }, []);
 
   return (
     <div>
-      <img data-testid="recipe-photo" src={ strDrinkThumb } alt="food" />
-      <h2 data-testid="recipe-title">{strDrink}</h2>
-      <section data-testid="recipe-category">
-        <h4>{strAlcoholic}</h4>
-        <h4>{strCategory}</h4>
-      </section>
-
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ shareAlert }
-      >
-        <img src={ shareIcon } alt="share" />
-      </button>
-      { visible === true && (
-        <p>Link copied!</p>
-      ) }
-      <button data-testid="favorite-btn" type="button">
-        <img src={ whiteHeart } alt="favorite" />
-      </button>
-      <section>
-        <ul>
-          { ingArr.map((ing, index) => (
-            <li
-              key={ ing }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { newObj[ing] }
-              { ' - ' }
-              { newObj[measureArr[index]] }
-            </li>
-          ))}
-        </ul>
-      </section>
-      <p data-testid="instructions">{strInstructions}</p>
-      <section>
-        <h1>recomendation</h1>
-        {
-          reco.map((rec, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img src={ rec.strMealThumb } alt="recomendation" />
-              <h3>{rec.strCategory}</h3>
-              <h3>{rec.strMeal}</h3>
-            </div>
-          ))
-        }
-      </section>
-      <button
-        className="start-recipe"
-        onClick={ startRecipe }
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Start Recipe
-      </button>
+      {
+        (recipe.length > 0 && reco.length > 0) && <DetailsCard
+          details={ setDetailsProps() }
+        />
+      }
     </div>
   );
 }

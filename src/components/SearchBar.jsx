@@ -35,6 +35,7 @@ export default function SearchBar() {
   }, []);
 
   useEffect(() => {
+    console.log(globalFoods);
     if (window.location.href === 'http://localhost:3000/foods' && globalFoods.length === 1) {
       return history.push(`/foods/${globalFoods[0].idMeal}`);
     }
@@ -48,7 +49,8 @@ export default function SearchBar() {
     case 'mealsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } setGlobalFoods(await mealsAPI(mealsFirstLetter, searchInput));
+      }
+      setGlobalFoods(await mealsAPI(mealsFirstLetter, searchInput));
       break;
     case 'mealsIngredientR':
       setGlobalFoods(await mealsAPI(mealsIng, searchInput));
@@ -61,11 +63,13 @@ export default function SearchBar() {
       break;
     case 'cocktailsIngredientR':
       setGlobalDrinks(await cocktailsAPI(drinksIng, searchInput));
+      console.log(globalDrinks);
       break;
     case 'cocktailsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } setGlobalDrinks(await cocktailsAPI(drinksFirstLetter, searchInput));
+      }
+      setGlobalDrinks(await cocktailsAPI(drinksFirstLetter, searchInput));
       break;
     default:
       break;

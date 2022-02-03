@@ -1,136 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeart from '../images/whiteHeartIcon.svg';
 import mealsAPI from '../services/mealsAPI';
 import { drinksName, mealsId } from '../data';
 import cocktailsAPI from '../services/cocktailsAPI';
+import MyContext from '../context/MyContext';
+import DetailsCard from '../components/DetailsCard';
 
-const copy = require('clipboard-copy');
-
-function FoodDetails(props) {
-  const [recipe, setRecipe] = useState({ strYoutube: 'https://www.youtube.com/watch?v=VVnZd8A84z4' });
+function FoodDetails({ match: { params: { id } } }) {
+  const { globalFoods } = useContext(MyContext);
+  const [recipe, setRecipe] = useState(() => (
+    globalFoods.filter((food) => food.idMeal === id)
+  ));
   const [reco, setReco] = useState([]);
-  const history = useHistory();
-  const [visible, setVisible] = useState(false);
+
+  const prepareRecipe = (arr) => {
+    const keys = Object.keys(arr[0]);
+    keys.forEach((key) => {
+      if (arr[0][key] === '' || !(arr[0][key]) || arr[0][key] === ' ') {
+        return delete arr[0][key];
+      }
+    });
+    const ingArr = Object.keys(arr[0])
+      .filter((key) => key.includes('strIngredient'));
+    const measureArr = Object.keys(arr[0])
+      .filter((key) => key.includes('strMeasure'));
+    const newObj = {
+      ing: ingArr,
+      measure: measureArr,
+      rec: arr[0],
+    };
+    return newObj;
+  };
 
   const getRecipe = async () => {
+    setRecipe(await mealsAPI(mealsId, id));
+  };
+
+  const getReco = async () => {
     const maxCards = 6;
-    const { match } = props;
-    const { id } = match.params;
-    const result = await mealsAPI(mealsId, id);
     const recomendation = await cocktailsAPI(drinksName, '');
-    setRecipe(result[0]);
     setReco(recomendation.slice(0, maxCards));
   };
 
-  console.log(recipe);
+  const setDetailsProps = () => {
+    const { strMeal, strMealThumb, strYoutube,
+      strCategory, strInstructions, idMeal } = recipe[0];
+    return {
+      image: strMealThumb,
+      title: strMeal,
+      newObj: prepareRecipe(recipe),
+      category: strCategory,
+      instructions: strInstructions,
+      video: strYoutube,
+      identi: idMeal,
+      reco,
+    };
+  };
 
   useEffect(() => {
-    getRecipe();
+    if (recipe.length === 0) {
+      getRecipe();
+    }
+    getReco();
   }, []);
-
-  const prepareRecipe = (obj) => {
-    const keys = Object.keys(obj);
-    keys.forEach((key) => {
-      if (obj[key] === '' || !(obj[key])
-      ) {
-        return delete obj[key];
-      }
-    });
-    return obj;
-  };
-
-  const newObj = prepareRecipe(recipe);
-  const ingArr = Object.keys(newObj)
-    .filter((key) => key.includes('strIngredient'));
-  const measureArr = Object.keys(newObj)
-    .filter((key) => key.includes('strMeasure'));
-
-  const { strMeal, strMealThumb, strYoutube,
-    strCategory, strInstructions, idMeal } = recipe;
-
-  const startRecipe = () => {
-    history.push(`/foods/${idMeal}/in-progress`);
-  };
 
   console.log(reco);
 
-  const shareAlert = () => {
-    copy(window.location.href);
-    if (visible === true) {
-      setVisible(false);
-    } else {
-      setVisible(true);
-    }
-  };
-
   return (
     <div>
-      <img data-testid="recipe-photo" src={ strMealThumb } alt="food" />
-      <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button
-        onClick={ shareAlert }
-        data-testid="share-btn"
-        type="button"
-      >
-        <img src={ shareIcon } alt="share" />
-      </button>
-      { visible === true && (
-        <p>Link copied!</p>
-      ) }
-      <button data-testid="favorite-btn" type="button">
-        <img src={ whiteHeart } alt="favorite" />
-      </button>
-      <section>
-        <ul>
-          { ingArr.map((ing, index) => (
-            <li
-              key={ ing }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { newObj[ing] }
-              { ' - ' }
-              { newObj[measureArr[index]] }
-            </li>
-          ))}
-        </ul>
-      </section>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
-      <p data-testid="instructions">{strInstructions}</p>
-      <iframe
-        src={ strYoutube.replace('watch?v=', 'embed/') }
-        // frameBorder="0"
-        allowFullScreen
-        title="video"
-        data-testid="video"
-      />
-      <section>
-        <h1>
-          Recomendation
-        </h1>
-        {
-          reco.map((rec, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img src={ rec.strDrinkThumb } alt="recomendation" />
-              <h3>{rec.strAlcoholic}</h3>
-              <h3>{rec.strDrink}</h3>
-            </div>
-          ))
-        }
-      </section>
-      <button
-        className="start-recipe"
-        onClick={ startRecipe }
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Start Recipe
-      </button>
+      {
+        (recipe.length > 0 && reco.length > 0) && (
+
+          <DetailsCard
+            details={ setDetailsProps() }
+          />
+        )
+
+      }
     </div>
   );
 }
