@@ -2,7 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { randomMealFetch } from '../services';
+import mealsAPI from '../services/mealsAPI';
+import { mealsRandom } from '../data';
 
 export default function SearchFoods() {
   const history = useHistory();
@@ -16,7 +17,7 @@ export default function SearchFoods() {
   };
 
   const surpriseMeFood = async () => {
-    const result = await randomMealFetch();
+    const result = await mealsAPI(mealsRandom);
     history.push(`/foods/${result}`);
   };
 
