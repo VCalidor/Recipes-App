@@ -64,8 +64,6 @@ function FoodDetails({ match: { params: { id } } }) {
     getReco();
   }, []);
 
-  console.log(reco);
-
   return (
     <div>
       {
