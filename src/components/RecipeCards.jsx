@@ -6,8 +6,14 @@ import '../css/RecipeCards.css';
 export default function RecipeCards({ index, source, title, identificador }) {
   const { pathname } = useLocation();
 
+  const getLocal = () => {
+    if (pathname.includes('nationalities')) {
+      return `/foods/${identificador}`;
+    } return `${pathname}/${identificador}`;
+  };
+
   return (
-    <Link to={ `${pathname}/${identificador}` }>
+    <Link to={ getLocal() }>
       <section
         data-testid={ `${index}-recipe-card` }
       >

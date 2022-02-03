@@ -21,7 +21,6 @@ const cocktailsAPI = async (endpoint, parameter = '') => {
   case drinksFirstLetter:
   case drinksIng:
   case drinksName:
-    console.log(drinks);
     if (!drinks) {
       global.alert(alertString);
       return [];

@@ -7,6 +7,8 @@ export const mealsIng = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const mealsName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 export const mealsId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 export const mealsRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
+export const mealsNatio = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+export const mealsDrop = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
 // Drinks endpoints
 export const drinksRender = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';

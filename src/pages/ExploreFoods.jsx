@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +7,13 @@ import { mealsRandom } from '../data';
 
 export default function SearchFoods() {
   const history = useHistory();
+  const [random, setRandom] = useState([]);
+
+  const getRandom = async () => setRandom(await mealsAPI(mealsRandom));
+
+  useEffect(() => {
+    getRandom();
+  }, []);
 
   const toFoodIngredients = () => {
     history.push('/explore/foods/ingredients');
@@ -17,10 +24,8 @@ export default function SearchFoods() {
   };
 
   const surpriseMeFood = async () => {
-    const result = await mealsAPI(mealsRandom);
-    history.push(`/foods/${result}`);
+    history.push(`/foods/${random[0].idMeal}`);
   };
-
   return (
     <>
       <Header title="Explore Foods" search="" />
