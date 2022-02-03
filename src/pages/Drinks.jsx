@@ -4,17 +4,19 @@ import Header from '../components/Header';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../context/MyContext';
 import RecipeCards from '../components/RecipeCards';
-import { cocktailsFirstRender, cocktailsCategoriesFetch } from '../services';
 import CategoriesButtons from '../components/CategoriesButtons';
+import cocktailsAPI from '../services/cocktailsAPI';
+import { drinksCateg, drinksRender } from '../data';
 
 export default function Drinks() {
-  const { resultsAPI, setResultsAPI } = useContext(MyContext);
+  const { globalDrinks, setGlobalDrinks } = useContext(MyContext);
   const [categories, setCategories] = useState([]);
 
   const firstRenderFetch = async () => {
-    // Funcao para setar no resultsAPI os primeiros drinks
-    setResultsAPI(await cocktailsFirstRender());
-    setCategories(await cocktailsCategoriesFetch());
+    if (globalDrinks.length === 0) {
+      setGlobalDrinks(await cocktailsAPI(drinksRender));
+    }
+    setCategories([{ strCategory: 'All' }].concat(await cocktailsAPI(drinksCateg)));
   };
 
   useEffect(() => {
@@ -22,8 +24,7 @@ export default function Drinks() {
   }, []);
 
   const magicNumber = 12;
-  const newResults = resultsAPI.filter((_result, index) => index < magicNumber);
-  console.log(newResults);
+  const newResults = globalDrinks.filter((_result, index) => index < magicNumber);
 
   return (
     <div>
@@ -31,7 +32,7 @@ export default function Drinks() {
       {categories.map(({ strCategory }, index) => (
         <CategoriesButtons index={ index } key={ index } category={ strCategory } />
       ))}
-      {!newResults[0].idMeal && (
+      {globalDrinks.length > 0 && (
         newResults.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
           <RecipeCards
             index={ index }

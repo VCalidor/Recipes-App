@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { cocktailsNameFetch, foodDetailsFetch } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import mealsAPI from '../services/mealsAPI';
+import { drinksName, mealsId } from '../data';
+import cocktailsAPI from '../services/cocktailsAPI';
 
 const copy = require('clipboard-copy');
 
@@ -17,8 +19,8 @@ function FoodDetails(props) {
     const maxCards = 6;
     const { match } = props;
     const { id } = match.params;
-    const result = await foodDetailsFetch(id);
-    const recomendation = await cocktailsNameFetch('');
+    const result = await mealsAPI(mealsId, id);
+    const recomendation = await cocktailsAPI(drinksName, '');
     setRecipe(result[0]);
     setReco(recomendation.slice(0, maxCards));
   };

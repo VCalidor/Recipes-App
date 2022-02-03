@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
-import {
-  mealsFirstLetterFetch,
-  mealsNameFetch,
-  mealsIngredientFetch,
-  cocktailsFirstLetterFetch,
-  cocktailsNameFetch,
-  cocktailsIngredientFetch,
-} from '../services';
+import { drinksFirstLetter,
+  drinksIng,
+  drinksName,
+  mealsFirstLetter,
+  mealsIng,
+  mealsName } from '../data';
+import cocktailsAPI from '../services/cocktailsAPI';
+import mealsAPI from '../services/mealsAPI';
 
 let ingredientR = '';
 let nameR = '';
@@ -17,7 +17,8 @@ let firstLetterR = '';
 export default function SearchBar() {
   const [radioFilter, setRadioFilter] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const { resultsAPI, setResultsAPI } = useContext(MyContext);
+  const { globalFoods, setGlobalFoods,
+    globalDrinks, setGlobalDrinks } = useContext(MyContext);
 
   const history = useHistory();
 
@@ -34,36 +35,37 @@ export default function SearchBar() {
   }, []);
 
   useEffect(() => {
-    if (resultsAPI.length === 1) {
-      if (window.location.href === 'http://localhost:3000/foods') {
-        return history.push(`/foods/${resultsAPI[0].idMeal}`);
-      } return history.push(`/drinks/${resultsAPI[0].idDrink}`);
+    if (window.location.href === 'http://localhost:3000/foods' && globalFoods.length === 1) {
+      return history.push(`/foods/${globalFoods[0].idMeal}`);
     }
-  }, [resultsAPI, history]);
+    if (globalDrinks.length === 1) {
+      return history.push(`/drinks/${globalDrinks[0].idDrink}`);
+    }
+  }, [globalFoods, globalDrinks, history]);
 
   const searchButton = async () => {
     switch (radioFilter) {
     case 'mealsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } setResultsAPI(await mealsFirstLetterFetch(searchInput));
+      } setGlobalFoods(await mealsAPI(mealsFirstLetter, searchInput));
       break;
     case 'mealsIngredientR':
-      setResultsAPI(await mealsIngredientFetch(searchInput));
+      setGlobalFoods(await mealsAPI(mealsIng, searchInput));
       break;
     case 'mealsNameR':
-      setResultsAPI(await mealsNameFetch(searchInput));
+      setGlobalFoods(await mealsAPI(mealsName, searchInput));
       break;
     case 'cocktailsNameR':
-      setResultsAPI(await cocktailsNameFetch(searchInput));
+      setGlobalDrinks(await cocktailsAPI(drinksName, searchInput));
       break;
     case 'cocktailsIngredientR':
-      setResultsAPI(await cocktailsIngredientFetch(searchInput));
+      setGlobalDrinks(await cocktailsAPI(drinksIng, searchInput));
       break;
     case 'cocktailsFirstLetterR':
       if (searchInput.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
-      } setResultsAPI(await cocktailsFirstLetterFetch(searchInput));
+      } setGlobalDrinks(await cocktailsAPI(drinksFirstLetter, searchInput));
       break;
     default:
       break;
