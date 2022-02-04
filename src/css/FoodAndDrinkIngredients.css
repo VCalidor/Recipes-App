@@ -1,0 +1,30 @@
+.ingredient-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 50px 0;
+}
+
+.ingredient-card {
+  align-items: center;
+  background-color: #ffd0fd;
+  border-bottom: 4px solid rgb(243, 148, 164);
+  border-left: none;
+  border-radius: 15px;
+  border-right: 4px solid rgb(243, 148, 164);
+  border-top: none;
+  color: black;
+  display: flex;
+  flex-basis: 45%;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.ingredient-card img {
+  margin-top: 10px;
+}
