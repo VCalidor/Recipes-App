@@ -1,23 +1,11 @@
-.login-section {
-  background: white;
+.Login {
+  background-image: url('../images/login.png');  
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 640px;
   position: relative;
   width: 360px;
-}
-
-.login-title {
-  align-items: flex-end;
-  color: black;
-  display: flex;
-  font-size: 39px;
-  font-style: normal;
-  font-weight: 400;
-  height: 46px;
-  left: 128px;
-  line-height: 46px;
-  position: absolute;
-  top: 79px;
-  width: 97px;
+  background-color: pink;
 }
 
 .login-password {
@@ -29,6 +17,7 @@
   position: absolute;
   top: 243px;
   width: 293px;
+  border-radius: 15px;
 }
 
 .login-email {
@@ -40,12 +29,14 @@
   position: absolute;
   top: 155px;
   width: 293px;
+  border-radius: 15px;
 }
 
-.login-btn {
-  background: #6ce34f;
-  height: 76px;
-  left: 11px;
+.Login button {
+  border-radius: 15px;
+  background: rgb(253, 144, 162);
+  height: 70px;
+  left: 11px; 
   position: absolute;
   top: 389px;
   width: 339px;

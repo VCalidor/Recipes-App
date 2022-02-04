@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import '../css/login.css';
+import '../css/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -24,13 +24,12 @@ export default function Login() {
   };
 
   return (
-    <section className="login-section">
-      <h1 className="login-title">Login</h1>
+    <section className="Login">
       <input
         className="login-email"
         data-testid="email-input"
         type="email"
-        placeholder="Email"
+        placeholder="Email: "
         value={ email }
         onChange={ ({ target: { value } }) => setEmail(value) }
       />
@@ -38,7 +37,7 @@ export default function Login() {
         className="login-password"
         data-testid="password-input"
         type="password"
-        placeholder="Password"
+        placeholder="Password: "
         value={ password }
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
