@@ -1,0 +1,29 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  align-self: center;
+  display: flex;
+}
+
+.image {
+  align-self: center;
+  height: 350px;
+  width: 350px;
+}
+
+.button-container button {
+  background: linear-gradient(90deg, rgba(255, 208, 253, 1), rgba(243, 148, 164, 1) 59%);
+  border: 3px solid white;
+  border-radius: 15px;
+  color: white;
+  font-family: Arial , Helvetica , sans-serif;
+  font-size: 1.05em;
+  font-weight: 800;
+  height: 100px;
+  margin-top: 30px;
+  overflow: hidden;
+  width: 110px;
+}

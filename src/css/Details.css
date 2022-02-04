@@ -1,0 +1,81 @@
+.Details {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.Details p {
+  text-align: center;
+}
+
+.Details li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Details h2 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.Details h4 {
+  text-align: center;
+}
+
+.favorite-and-share {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.favorite-and-share button {
+  background-color: white;
+  border: none;
+  display: flex;
+}
+
+.ingredient-list {
+  align-self: center;
+  display: flex;
+}
+
+.ingredient-list ul {
+  list-style: square;
+}
+
+.recomend-box {
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+.recomend-card {
+  display: flex;
+  flex-basis: 45%;
+  flex-direction: column;
+  width: 150px;
+}
+
+.recomend-card img {
+  border-radius: 15px;
+}
+
+.recomend-card h4 {
+  margin: 10px 0 70px;
+}
+
+.main-image {
+  border-radius: 3px;
+  height: 300px;
+  width: 100%;
+}
+
+.start-recipe {
+  bottom: 0;
+  height: 60px;
+  margin-top: 200px;
+  position: fixed;
+  width: 360px;
+}

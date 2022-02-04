@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import '../css/Details.css';
 
 const copy = require('clipboard-copy');
 
@@ -33,23 +34,30 @@ export default function DetailsCard({ details }) {
   };
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ image } alt="food" />
+    <div className="Details">
+      <img className="main-image" data-testid="recipe-photo" src={ image } alt="food" />
       <h2 data-testid="recipe-title">{title}</h2>
-      <button
-        onClick={ shareAlert }
-        data-testid="share-btn"
-        type="button"
-      >
-        <img src={ shareIcon } alt="share" />
-      </button>
-      { visible === true && (
-        <p>Link copied!</p>
-      ) }
-      <button data-testid="favorite-btn" type="button">
-        <img src={ whiteHeart } alt="favorite" />
-      </button>
-      <section>
+      <section data-testid="recipe-category">
+        {
+          alcoholic ? <h4>{`${alcoholic} ${category} `}</h4> : <h4>{ category }</h4>
+        }
+      </section>
+      <div className="favorite-and-share">
+        <button
+          onClick={ shareAlert }
+          data-testid="share-btn"
+          type="button"
+        >
+          <img src={ shareIcon } alt="share" />
+        </button>
+        { visible === true && (
+          <p>Link copied!</p>
+        ) }
+        <button data-testid="favorite-btn" type="button">
+          <img src={ whiteHeart } alt="favorite" />
+        </button>
+      </div>
+      <section className="ingredient-list">
         <ul>
           { newObj.ing.length > 0 && (
             newObj.ing.map((ingr, index) => (
@@ -58,15 +66,12 @@ export default function DetailsCard({ details }) {
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
                 <span>{ newObj.rec[ingr] }</span>
+                <span>---</span>
                 <span>{ newObj.rec[newObj.measure[index]] }</span>
               </li>
             ))
           )}
         </ul>
-      </section>
-      <section data-testid="recipe-category">
-        { alcoholic && <h4>{ alcoholic }</h4>}
-        <h4>{ category }</h4>
       </section>
       <p data-testid="instructions">{ instructions }</p>
       { video && (
@@ -78,37 +83,40 @@ export default function DetailsCard({ details }) {
         />
       )}
       <section>
-        <h1>
+        <h2>
           Recomendation
-        </h1>
-        {
-          reco[0].strDrink && (
-            reco.map((rec, index) => (
-              <div
-                key={ index }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img src={ rec.strDrinkThumb } alt="recomendation" />
-                <h3>{rec.strAlcoholic}</h3>
-                <h3>{rec.strDrink}</h3>
-              </div>
-            ))
-          )
-        }
-        {
-          reco[0].strMeal && (
-            reco.map((rec, index) => (
-              <div
-                key={ index }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img src={ rec.strMealThumb } alt="recomendation" />
-                <h3>{rec.strCategory}</h3>
-                <h3>{rec.strMeal}</h3>
-              </div>
-            ))
-          )
-        }
+        </h2>
+        <div className="recomend-box">
+          {
+            reco[0].strDrink && (
+              reco.map((rec, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recomendation-card` }
+                  className="recomend-card"
+                >
+                  <img src={ rec.strDrinkThumb } alt="recomendation" />
+                  <h4>{rec.strAlcoholic}</h4>
+                  <h4>{rec.strDrink}</h4>
+                </div>
+              ))
+            )
+          }
+          {
+            reco[0].strMeal && (
+              reco.map((rec, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recomendation-card` }
+                  className="recomend-card"
+                >
+                  <img src={ rec.strMealThumb } alt="recomendation" />
+                  <h4>{rec.strMeal}</h4>
+                </div>
+              ))
+            )
+          }
+        </div>
       </section>
       <button
         className="start-recipe"

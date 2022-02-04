@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import foodIcon from '../images/mealIcon.svg';
+import '../css/Footer.css';
 
 function Footer() {
   const history = useHistory();
@@ -13,7 +14,7 @@ function Footer() {
 
   return (
     <footer
-      className="footer"
+      className="Footer"
       data-testid="footer"
     >
       <button

@@ -9,6 +9,7 @@ import { drinksFirstLetter,
   mealsName } from '../data';
 import cocktailsAPI from '../services/cocktailsAPI';
 import mealsAPI from '../services/mealsAPI';
+import '../css/SearchBar.css';
 
 let ingredientR = '';
 let nameR = '';
@@ -77,9 +78,9 @@ export default function SearchBar() {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="radio-inputs">
+    <div className="SearchBar">
+      <div className="radio">
+        <label htmlFor="radio-inputs" className="ml">
           <input
             name="radio-inputs"
             data-testid="ingredient-search-radio"
@@ -87,6 +88,8 @@ export default function SearchBar() {
             onClick={ () => setRadioFilter(ingredientR) }
           />
           ingredient
+        </label>
+        <label htmlFor="radio-inputs">
           <input
             name="radio-inputs"
             data-testid="name-search-radio"
@@ -94,6 +97,8 @@ export default function SearchBar() {
             onClick={ () => setRadioFilter(nameR) }
           />
           Name
+        </label>
+        <label htmlFor="radio-inputs" className="mr">
           <input
             name="radio-inputs"
             data-testid="first-letter-search-radio"
@@ -103,19 +108,23 @@ export default function SearchBar() {
           First Letter
         </label>
       </div>
-      <input
-        data-testid="search-input"
-        type="text"
-        value={ searchInput }
-        onChange={ ({ target: { value } }) => setSearchInput(value) }
-      />
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ searchButton }
-      >
-        Search
-      </button>
+      <div className="submit">
+        <input
+          className="ml"
+          data-testid="search-input"
+          type="text"
+          value={ searchInput }
+          onChange={ ({ target: { value } }) => setSearchInput(value) }
+        />
+        <button
+          className="mr"
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchButton }
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 }

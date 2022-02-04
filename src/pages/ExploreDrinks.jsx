@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import cocktailsAPI from '../services/cocktailsAPI';
 import { drinksRandom } from '../data';
+import exploreFood from '../images/explorefood.png';
+import '../css/ExploreFoodsAndDrinks.css';
 
 export default function SearchDrinks() {
   const history = useHistory();
@@ -24,9 +26,9 @@ export default function SearchDrinks() {
   };
 
   return (
-    <>
+    <div className="main-container">
       <Header title="Explore Drinks" search="" />
-      <div>
+      <div className="button-container">
         <button
           onClick={ toDrinksIngredients }
           data-testid="explore-by-ingredient"
@@ -42,7 +44,8 @@ export default function SearchDrinks() {
           Surprise me!
         </button>
       </div>
+      <img className="image" src={ exploreFood } alt="explore food" />
       <Footer />
-    </>
+    </div>
   );
 }

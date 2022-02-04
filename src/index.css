@@ -12,16 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.footer {
-  bottom: 0;
-  height: 58px;
-  left: 0px;
-  position: fixed;
-  width: 360px;
-}
-
-.start-recipe {
-  position: fixed;
-  bottom: 0px;
-}

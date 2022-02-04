@@ -1,4 +1,23 @@
 .Header div {
   display: flex;
-  justify-content: space-between;
+  height: 50px;
+  justify-content: space-around;
+}
+
+.Header h1 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.search-icon {
+  background-color: white;
+  border: none;
+  height: 40px;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.user-image {
+  margin-left: 10px;
+  margin-top: 6px;
 }

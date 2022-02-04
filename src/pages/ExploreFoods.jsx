@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import mealsAPI from '../services/mealsAPI';
 import { mealsRandom } from '../data';
+import exploreDrink from '../images/exploredrink.png';
+import '../css/ExploreFoodsAndDrinks.css';
 
 export default function SearchFoods() {
   const history = useHistory();
@@ -27,9 +29,9 @@ export default function SearchFoods() {
     history.push(`/foods/${random[0].idMeal}`);
   };
   return (
-    <>
+    <div className="main-container">
       <Header title="Explore Foods" search="" />
-      <div>
+      <div className="button-container">
         <button
           onClick={ toFoodIngredients }
           data-testid="explore-by-ingredient"
@@ -52,7 +54,8 @@ export default function SearchFoods() {
           Surprise me!
         </button>
       </div>
+      <img className="image" src={ exploreDrink } alt="explore drink" />
       <Footer />
-    </>
+    </div>
   );
 }
