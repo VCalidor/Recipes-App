@@ -100,7 +100,7 @@ export default function DetailsCard({ details }) {
                 >
                   <img src={ rec.strDrinkThumb } alt="recomendation" />
                   <h4>{rec.strAlcoholic}</h4>
-                  <h4>{rec.strDrink}</h4>
+                  <h4 data-testid={ `${index}-recomendation-title` }>{rec.strDrink}</h4>
                 </div>
               ))
             )
@@ -114,7 +114,7 @@ export default function DetailsCard({ details }) {
                   className="recomend-card"
                 >
                   <img src={ rec.strMealThumb } alt="recomendation" />
-                  <h4>{rec.strMeal}</h4>
+                  <h4 data-testid={ `${index}-recomendation-title` }>{rec.strMeal}</h4>
                 </div>
               ))
             )
