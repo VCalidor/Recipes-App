@@ -1,4 +1,18 @@
 .Header div {
   display: flex;
   justify-content: space-between;
+  height: 50px;
+}
+
+.search-icon {
+  background-color: white;
+  height: 40px;
+  border: none;
+  margin-top: 2px;
+  margin-right: 3px;
+}
+
+.user-image {
+  margin-top: 6px;
+  margin-left: 10px;
 }

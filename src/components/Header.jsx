@@ -15,11 +15,17 @@ function Header(props) {
     <header className="Header">
       <div>
         <Link to="/profile">
-          <img data-testid="profile-top-btn" src={ userLogo } alt="logo do usuario" />
+          <img
+            data-testid="profile-top-btn"
+            src={ userLogo }
+            alt="logo do usuario"
+            className="user-image"
+          />
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         { search !== '' && (
           <button
+            className="search-icon"
             type="button"
             onClick={ visibleBtn }
           >

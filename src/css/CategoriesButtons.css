@@ -1,0 +1,41 @@
+.CategoriesButtons {
+  display: flex;
+  flex-basis: 45%;
+  background-color: red;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  border: 3px solid white;
+  padding: 10px 20px;
+  font-family: Arial;
+  font-weight: 800;
+  font-size: 1.05em;
+  border-radius: 15px;
+  transition: transform .3s ease, color 5s ease;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.CategoriesButtons:after {
+  content: '';
+  inset: 0 0 0 0;
+  margin: auto;
+  height: 0;
+  width: 0;
+  position: absolute;
+  background-color: white;
+  z-index: -1;
+  border-radius: 50%;
+  transition: all .1s ease-in;
+}
+
+.CategoriesButtons:active {
+  transform: scale(.9);
+  color: red;
+}
+
+.CategoriesButtons:active:after {
+  height: 200px;
+  width: 200px;
+}

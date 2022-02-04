@@ -1,0 +1,34 @@
+.SearchBar {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.radio {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.submit {
+  display: flex;
+  justify-content: space-around;
+}
+
+.submit input {
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.submit button {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.ml {
+  margin-left: 12px;
+}
+
+.mr {
+  margin-right: 12px;
+}

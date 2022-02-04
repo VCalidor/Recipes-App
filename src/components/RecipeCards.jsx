@@ -13,8 +13,9 @@ export default function RecipeCards({ index, source, title, identificador }) {
   };
 
   return (
-    <Link to={ getLocal() }>
+    <Link className="RecipeCards" to={ getLocal() }>
       <section
+        className="container"
         data-testid={ `${index}-recipe-card` }
       >
         <img

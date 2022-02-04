@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import '../css/RecipeCards.css';
 import MyContext from '../context/MyContext';
 import mealsAPI from '../services/mealsAPI';
+import '../css/CategoriesButtons.css';
 import { drinksCategRecipe, drinksRender, mealsCategRecipe, mealsRender } from '../data';
 import cocktailsAPI from '../services/cocktailsAPI';
 
@@ -58,9 +58,9 @@ function CategoriesButtons({ category, index }) {
       key={ index }
       data-testid={ `${category}-category-filter` }
       onClick={ getCategoriesRecipes }
-      className="categories-buttons"
+      className="CategoriesButtons"
     >
-      { category }
+      <p>{ category }</p>
     </button>
   );
 }

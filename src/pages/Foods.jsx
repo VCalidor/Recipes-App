@@ -7,6 +7,7 @@ import RecipeCards from '../components/RecipeCards';
 import CategoriesButtons from '../components/CategoriesButtons';
 import { mealsCateg, mealsRender } from '../data';
 import mealsAPI from '../services/mealsAPI';
+import '../css/FoodsAndDrinks.css';
 
 export default function Foods() {
   const { globalFoods, setGlobalFoods } = useContext(MyContext);
@@ -26,9 +27,9 @@ export default function Foods() {
   const magicNumber = 12;
 
   return (
-    <div>
+    <div className="main-content">
       <Header title="Foods" search={ searchIcon } />
-      <section>
+      <section className="category-list">
         { categories.map(({ strCategory }, index) => (
           <CategoriesButtons
             index={ index }
@@ -37,7 +38,7 @@ export default function Foods() {
           />
         ))}
       </section>
-      <section>
+      <section className="card-list">
         { globalFoods && (
           globalFoods.filter((_result, index) => index < magicNumber)
             .map(({ strMeal, strMealThumb, idMeal }, index) => (
