@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../css/Explore.css';
+import exploreImage from '../images/explore.png';
 
 export default function Explore() {
   const history = useHistory();
@@ -15,15 +17,16 @@ export default function Explore() {
   };
 
   return (
-    <div>
+    <div className="Explore">
       <Header title="Explore" search="" />
-      <div>
+      <section>
         <button
           onClick={ toFoodPage }
           data-testid="explore-foods"
           type="button"
         >
-          Explore Foods
+          <div className="liquid">{}</div>
+          <span>Explore Foods</span>
         </button>
         <button
           onClick={ toDrinkPage }
@@ -32,7 +35,8 @@ export default function Explore() {
         >
           Explore Drinks
         </button>
-      </div>
+      </section>
+      <img className="image" src={ exploreImage } alt="explore page" />
       <Footer />
     </div>
   );

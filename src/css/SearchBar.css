@@ -15,14 +15,14 @@
 }
 
 .submit input {
-  border-radius: 10px;
   border: 1px solid black;
+  border-radius: 10px;
 }
 
 .submit button {
-  display: flex;
-  border-radius: 10px;
   border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
 }
 
 .ml {

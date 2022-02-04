@@ -1,42 +1,42 @@
 .Login {
-  background-image: url('../images/login.png');  
-  background-size: cover;
+  background-color: pink;
+  background-image: url('../images/login.png');
   background-repeat: no-repeat;
+  background-size: cover;
   height: 640px;
   position: relative;
   width: 360px;
-  background-color: pink;
 }
 
 .login-password {
   background: white;
   border: 1px solid black;
+  border-radius: 15px;
   box-sizing: border-box;
   height: 58px;
   left: 30px;
   position: absolute;
   top: 243px;
   width: 293px;
-  border-radius: 15px;
 }
 
 .login-email {
   background: white;
   border: 1px solid black;
+  border-radius: 15px;
   box-sizing: border-box;
   height: 58px;
   left: 31px;
   position: absolute;
   top: 155px;
   width: 293px;
-  border-radius: 15px;
 }
 
 .Login button {
-  border-radius: 15px;
   background: rgb(253, 144, 162);
+  border-radius: 15px;
   height: 70px;
-  left: 11px; 
+  left: 11px;
   position: absolute;
   top: 389px;
   width: 339px;
