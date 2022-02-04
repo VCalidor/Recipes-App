@@ -4,9 +4,9 @@
   flex-direction: column;
 }
 
-.Details p {
+/* .Details p {
   text-align: center;
-}
+} */
 
 .Details li {
   display: flex;
@@ -41,6 +41,11 @@
 
 .ingredient-list ul {
   list-style: square;
+}
+
+.instructions {
+  padding: 0 20px;
+  text-align: justify;
 }
 
 .recomend-box {

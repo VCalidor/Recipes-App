@@ -65,15 +65,18 @@ export default function DetailsCard({ details }) {
                 key={ ingr }
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
-                <span>{ newObj.rec[ingr] }</span>
-                <span>---</span>
-                <span>{ newObj.rec[newObj.measure[index]] }</span>
+                <span>
+                  {`${newObj.rec[newObj.measure[index]]} of ${newObj.rec[ingr]}`}
+                </span>
+                {/* <span>{ newObj.rec[newObj.measure[index]] }</span>
+                <span>of</span>
+                <span>{ newObj.rec[ingr] }</span> */}
               </li>
             ))
           )}
         </ul>
       </section>
-      <p data-testid="instructions">{ instructions }</p>
+      <p className="instructions" data-testid="instructions">{ instructions }</p>
       { video && (
         <iframe
           src={ video.replace('watch?v=', 'embed/') }
