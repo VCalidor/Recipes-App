@@ -45,21 +45,18 @@
 
 .recomend-box {
   display: flex;
-  flex-wrap: wrap;
-  height: 300px;
-  justify-content: space-evenly;
-  overflow: hidden;
+  height: 500px;
+  overflow-x: auto;
 }
 
 .recomend-card {
   display: flex;
-  flex-basis: 45%;
   flex-direction: column;
-  width: 150px;
 }
 
 .recomend-card img {
   border-radius: 15px;
+  width: 50vw;
 }
 
 .recomend-card h4 {
