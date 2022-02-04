@@ -1,0 +1,12 @@
+.Footer {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  margin-left: 0px;
+  align-self: center;
+}
+
+.Footer button {
+  width: 120px;
+}
