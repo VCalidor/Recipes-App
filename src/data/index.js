@@ -9,6 +9,7 @@ export const mealsId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 export const mealsRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
 export const mealsNatio = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 export const mealsDrop = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+export const mealsIngList = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 
 // Drinks endpoints
 export const drinksRender = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -19,3 +20,4 @@ export const drinksIng = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php
 export const drinksName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 export const drinksId = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 export const drinksRandom = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+export const drinkIngList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
