@@ -60,7 +60,16 @@ export default function DoneRecipes() {
         <p>Drinks</p>
       </button>
       {
-        recipes.map(({ category, image, name, doneDate, tags }, index) => (
+        recipes.map(({
+          category,
+          image,
+          name,
+          doneDate,
+          tags,
+          type,
+          nationality,
+          alcoholicOrNot,
+        }, index) => (
           <div key={ index }>
             <img
               src={ image }
@@ -68,9 +77,7 @@ export default function DoneRecipes() {
               alt={ `${name} recipe` }
               style={ { height: '200px' } }
             />
-            <h5
-              data-testid={ `${index}-horizontal-top-text` }
-            >
+            <h5>
               {category}
             </h5>
             <h1
@@ -83,22 +90,34 @@ export default function DoneRecipes() {
             >
               {`Done in: ${doneDate}`}
             </h4>
+            { type === 'food' ? (
+              <h5 data-testid={ `${index}-horizontal-top-text` }>
+                { `${nationality} - ${category}` }
+              </h5>
+            ) : (
+              <h5 data-testid={ `${index}-horizontal-top-text` }>
+                { alcoholicOrNot }
+              </h5>
+            ) }
             {
-              tags.map((tagName, i) => (
-                <h5
+              tags.slice(0, 2).map((tagName, i) => (
+                <span
                   data-testid={ `${index}-${tagName}-horizontal-tag` }
                   key={ i }
                 >
-                  {tagName}
-                </h5>
+                  {`${tagName} `}
+                </span>
               ))
             }
             <div className="favorite-and-share">
               <button
-                data-testid={ `${index}-horizontal-share-btn` }
                 type="button"
               >
-                <img src={ shareIcon } alt={ `share ${name} recipe` } />
+                <img
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  alt={ `share ${name} recipe` }
+                />
               </button>
             </div>
           </div>
