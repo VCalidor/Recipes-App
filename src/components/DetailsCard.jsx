@@ -89,7 +89,7 @@ export default function DetailsCard({ details }) {
         </button>
       </div>
       <IngredientList newObj={ newObj } />
-      <p data-testid="instructions">{ instructions }</p>
+      <p className="instructions" data-testid="instructions">{ instructions }</p>
       { video && (
         <iframe
           src={ video.replace('watch?v=', 'embed/') }
