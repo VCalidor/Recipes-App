@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 const doneRecipes = [
   {
@@ -29,11 +32,34 @@ const doneRecipes = [
 
 export default function DoneRecipes() {
   const [recipes, getRecipes] = useState([]);
+  const [visible, setVisible] = useState(false);
+
+  const filterFood = () => {
+    const foods = doneRecipes.filter((meal) => meal.type === 'food');
+    getRecipes(foods);
+  };
+
+  const shareAlert = (type, id) => {
+    copy(`http://localhost:3000/${type}s/${id}`);
+    if (visible === true) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
+
+  const filterDrink = () => {
+    const drinks = doneRecipes.filter((meal) => meal.type === 'drink');
+    getRecipes(drinks);
+  };
+
+  const filterAll = () => {
+    getRecipes(doneRecipes);
+  };
 
   useEffect(() => {
-    getRecipes(doneRecipes);
-    console.log(recipes);
-  }, [recipes]);
+    filterAll();
+  }, []);
 
   return (
     <div>
@@ -42,6 +68,7 @@ export default function DoneRecipes() {
         type="button"
         data-testid="filter-by-all-btn"
         className="CategoriesButtons"
+        onClick={ filterAll }
       >
         <p>All</p>
       </button>
@@ -49,13 +76,15 @@ export default function DoneRecipes() {
         type="button"
         data-testid="filter-by-food-btn"
         className="CategoriesButtons"
+        onClick={ filterFood }
       >
-        <p>Food</p>
+        <p>Foods</p>
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
         className="CategoriesButtons"
+        onClick={ filterDrink }
       >
         <p>Drinks</p>
       </button>
@@ -69,56 +98,66 @@ export default function DoneRecipes() {
           type,
           nationality,
           alcoholicOrNot,
+          id,
         }, index) => (
           <div key={ index }>
-            <img
-              src={ image }
-              data-testid={ `${index}-horizontal-image` }
-              alt={ `${name} recipe` }
-              style={ { height: '200px' } }
-            />
-            <h5>
-              {category}
-            </h5>
-            <h1
-              data-testid={ `${index}-horizontal-name` }
-            >
-              {name}
-            </h1>
-            <h4
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              {`Done in: ${doneDate}`}
-            </h4>
-            { type === 'food' ? (
-              <h5 data-testid={ `${index}-horizontal-top-text` }>
-                { `${nationality} - ${category}` }
+
+            <Link to={ `/${type}s/${id}` }>
+              <img
+                src={ image }
+                data-testid={ `${index}-horizontal-image` }
+                alt={ `${name} recipe` }
+                style={ { height: '200px' } }
+              />
+              <h5>
+                {category}
               </h5>
-            ) : (
-              <h5 data-testid={ `${index}-horizontal-top-text` }>
-                { alcoholicOrNot }
-              </h5>
-            ) }
-            {
-              tags.slice(0, 2).map((tagName, i) => (
-                <span
-                  data-testid={ `${index}-${tagName}-horizontal-tag` }
-                  key={ i }
-                >
-                  {`${tagName} `}
-                </span>
-              ))
-            }
-            <div className="favorite-and-share">
-              <button
-                type="button"
+              <h2
+                data-testid={ `${index}-horizontal-name` }
               >
-                <img
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  alt={ `share ${name} recipe` }
-                />
-              </button>
+                {name}
+              </h2>
+              <h4
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {`Done in: ${doneDate}`}
+              </h4>
+              { type === 'food' ? (
+                <h5 data-testid={ `${index}-horizontal-top-text` }>
+                  { `${nationality} - ${category}` }
+                </h5>
+              ) : (
+                <h5 data-testid={ `${index}-horizontal-top-text` }>
+                  { alcoholicOrNot }
+                </h5>
+              ) }
+              {
+                tags.slice(0, 2).map((tagName, i) => (
+                  <span
+                    data-testid={ `${index}-${tagName}-horizontal-tag` }
+                    key={ i }
+                  >
+                    {`${tagName} `}
+                  </span>
+                ))
+              }
+            </Link>
+            <div>
+              <div className="favorite-and-share">
+                <button
+                  type="button"
+                  onClick={ () => shareAlert(type, id) }
+                >
+                  <img
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    src={ shareIcon }
+                    alt={ `share ${name} recipe` }
+                  />
+                </button>
+                { visible === true && (
+                  <p>Link copied!</p>
+                )}
+              </div>
             </div>
           </div>
         ))
