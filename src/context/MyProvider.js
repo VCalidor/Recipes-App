@@ -4,6 +4,7 @@ import MyContext from './MyContext';
 import mealsAPI from '../services/mealsAPI';
 import cocktailsAPI from '../services/cocktailsAPI';
 import { drinksRender, mealsRender } from '../data';
+import { getLocalIterable } from '../services/helpers';
 
 export default function MyProvider({ children }) {
   const [resultsAPI, setResultsAPI] = useState([{
@@ -17,6 +18,12 @@ export default function MyProvider({ children }) {
 
   const foodData = async () => setGlobalFoods(await mealsAPI(mealsRender));
   const drinksData = async () => setGlobalDrinks(await cocktailsAPI(drinksRender));
+
+  const [inProgress, setInProgress] = useState(getLocalIterable('inProgressRecipes') || (
+    { cocktails: {}, meals: {} }));
+  const [favorites, setFavorites] = useState(getLocalIterable('favoriteRecipes') || []);
+  const checkFavorites = (id) => favorites.some((favorite) => (
+    Number(favorite.id) === Number(id)));
 
   useEffect(() => {
     foodData();
@@ -32,6 +39,11 @@ export default function MyProvider({ children }) {
     setGlobalDrinks,
     filtersCategory,
     setFiltersCategory,
+    inProgress,
+    setInProgress,
+    checkFavorites,
+    setFavorites,
+    favorites,
   };
 
   return (

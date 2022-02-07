@@ -53,6 +53,9 @@ function DrinkDetails({ match: { params: { id } } }) {
       instructions: strInstructions,
       identi: idDrink,
       reco,
+      type: 'drink',
+      nationality: '',
+      kind: 'cocktails',
     };
   };
 

@@ -44,7 +44,7 @@ function FoodDetails({ match: { params: { id } } }) {
 
   const setDetailsProps = () => {
     const { strMeal, strMealThumb, strYoutube,
-      strCategory, strInstructions, idMeal } = recipe[0];
+      strCategory, strInstructions, idMeal, strArea } = recipe[0];
     return {
       image: strMealThumb,
       title: strMeal,
@@ -54,6 +54,10 @@ function FoodDetails({ match: { params: { id } } }) {
       video: strYoutube,
       identi: idMeal,
       reco,
+      type: 'food',
+      nationality: strArea,
+      alcoholic: '',
+      kind: 'meals',
     };
   };
 

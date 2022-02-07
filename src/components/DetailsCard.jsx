@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 import '../css/Details.css';
+import MyContext from '../context/MyContext';
+import IngredientList from './ingredientList';
+import RecomendCard from './RecomendCard';
+import { setLocalIterable } from '../services/helpers';
 
 const copy = require('clipboard-copy');
 
@@ -11,10 +16,11 @@ export default function DetailsCard({ details }) {
   const {
     image, title, newObj,
     category, instructions,
-    video, reco, identi, alcoholic,
+    video, reco, identi, alcoholic, type, nationality, kind,
   } = details;
   const [visible, setVisible] = useState(false);
   const history = useHistory();
+  const { setFavorites, favorites, checkFavorites, inProgress } = useContext(MyContext);
 
   const shareAlert = () => {
     copy(window.location.href);
@@ -22,6 +28,26 @@ export default function DetailsCard({ details }) {
       setVisible(false);
     } else {
       setVisible(true);
+    }
+  };
+
+  const toggleFavorites = () => {
+    const newFavorite = {
+      id: identi,
+      name: title,
+      image,
+      category,
+      alcoholicOrNot: alcoholic,
+      type,
+      nationality,
+    };
+    if (!checkFavorites(identi)) {
+      setFavorites(favorites.concat(newFavorite));
+      setLocalIterable('favoriteRecipes', favorites.concat(newFavorite));
+    } else {
+      const filteredFavorites = favorites.filter((favorite) => favorite.id !== identi);
+      setFavorites(filteredFavorites);
+      setLocalIterable('favoriteRecipes', filteredFavorites);
     }
   };
 
@@ -53,11 +79,17 @@ export default function DetailsCard({ details }) {
         { visible === true && (
           <p>Link copied!</p>
         ) }
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeart } alt="favorite" />
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ toggleFavorites }
+          src={ checkFavorites(identi) ? blackHeart : whiteHeart }
+        >
+          <img src={ checkFavorites(identi) ? blackHeart : whiteHeart } alt="favorite" />
         </button>
       </div>
-      <section className="ingredient-list">
+      <IngredientList newObj={ newObj } />
+      {/* <section className="ingredient-list">
         <ul>
           { newObj.ing.length > 0 && (
             newObj.ing.map((ingr, index) => (
@@ -72,7 +104,7 @@ export default function DetailsCard({ details }) {
             ))
           )}
         </ul>
-      </section>
+      </section> */}
       <p data-testid="instructions">{ instructions }</p>
       { video && (
         <iframe
@@ -86,7 +118,8 @@ export default function DetailsCard({ details }) {
         <h2>
           Recomendation
         </h2>
-        <div className="recomend-box">
+        <RecomendCard reco={ reco } />
+        {/* <div className="recomend-box">
           {
             reco[0].strDrink && (
               reco.map((rec, index) => (
@@ -116,7 +149,7 @@ export default function DetailsCard({ details }) {
               ))
             )
           }
-        </div>
+        </div> */}
       </section>
       <button
         className="start-recipe"
@@ -124,7 +157,10 @@ export default function DetailsCard({ details }) {
         data-testid="start-recipe-btn"
         type="button"
       >
-        Start Recipe
+        {
+          Object.keys(inProgress[kind]).includes(identi) ? (
+            'Continue Recipe') : 'Start Recipe'
+        }
       </button>
     </div>
   );
@@ -145,6 +181,9 @@ DetailsCard.propTypes = {
     reco: PropTypes.arrayOf(PropTypes.object).isRequired,
     identi: PropTypes.string.isRequired,
     alcoholic: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    nationality: PropTypes.string,
+    kind: PropTypes.string.isRequired,
   }),
 };
 
@@ -153,5 +192,6 @@ DetailsCard.defaultProps = {
     category: null,
     video: null,
     alcoholic: null,
+    nationality: '',
   }),
 };
