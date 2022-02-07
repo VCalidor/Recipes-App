@@ -89,22 +89,6 @@ export default function DetailsCard({ details }) {
         </button>
       </div>
       <IngredientList newObj={ newObj } />
-      {/* <section className="ingredient-list">
-        <ul>
-          { newObj.ing.length > 0 && (
-            newObj.ing.map((ingr, index) => (
-              <li
-                key={ ingr }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                <span>{ newObj.rec[ingr] }</span>
-                <span>---</span>
-                <span>{ newObj.rec[newObj.measure[index]] }</span>
-              </li>
-            ))
-          )}
-        </ul>
-      </section> */}
       <p data-testid="instructions">{ instructions }</p>
       { video && (
         <iframe
@@ -119,37 +103,6 @@ export default function DetailsCard({ details }) {
           Recomendation
         </h2>
         <RecomendCard reco={ reco } />
-        {/* <div className="recomend-box">
-          {
-            reco[0].strDrink && (
-              reco.map((rec, index) => (
-                <div
-                  key={ index }
-                  data-testid={ `${index}-recomendation-card` }
-                  className="recomend-card"
-                >
-                  <img src={ rec.strDrinkThumb } alt="recomendation" />
-                  <h4>{rec.strAlcoholic}</h4>
-                  <h4>{rec.strDrink}</h4>
-                </div>
-              ))
-            )
-          }
-          {
-            reco[0].strMeal && (
-              reco.map((rec, index) => (
-                <div
-                  key={ index }
-                  data-testid={ `${index}-recomendation-card` }
-                  className="recomend-card"
-                >
-                  <img src={ rec.strMealThumb } alt="recomendation" />
-                  <h4>{rec.strMeal}</h4>
-                </div>
-              ))
-            )
-          }
-        </div> */}
       </section>
       <button
         className="start-recipe"
