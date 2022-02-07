@@ -1,32 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 import '../css/Details.css';
 import IngredientsProgress from './IngredientsProgress';
+import MyContext from '../context/MyContext';
+import { setLocalIterable } from '../services/helpers';
 
 const copy = require('clipboard-copy');
+
+const magicNumber = 33;
 
 export default function FoodProgressCard({ details }) {
   const {
     image, title, newObj,
     category, instructions,
     video, alcoholic, identi,
+    type, nationality,
   } = details;
   const [visible, setVisible] = useState(false);
-  const [inProgress, setInProgress] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')).meals[identi],
-  );
+
+  const [inProgress, setInProgress] = useState(JSON
+    .parse(localStorage
+      .getItem('inProgressRecipes')).meals[identi] || []);
+
+  const { setFavorites, favorites, checkFavorites } = useContext(MyContext);
 
   const history = useHistory();
 
   const shareAlert = () => {
-    copy(window.location.href);
+    copy(window.location.href.slice(0, magicNumber));
     if (visible === true) {
       setVisible(false);
     } else {
       setVisible(true);
+    }
+  };
+
+  const toggleFavorites = () => {
+    const newFavorite = {
+      id: identi,
+      name: title,
+      image,
+      category,
+      alcoholicOrNot: alcoholic,
+      type,
+      nationality,
+    };
+    if (!checkFavorites(identi)) {
+      setFavorites(favorites.concat(newFavorite));
+      setLocalIterable('favoriteRecipes', favorites.concat(newFavorite));
+    } else {
+      const filteredFavorites = favorites.filter((favorite) => favorite.id !== identi);
+      setFavorites(filteredFavorites);
+      setLocalIterable('favoriteRecipes', filteredFavorites);
     }
   };
 
@@ -60,8 +89,13 @@ export default function FoodProgressCard({ details }) {
         { visible === true && (
           <p>Link copied!</p>
         ) }
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeart } alt="favorite" />
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ toggleFavorites }
+          src={ checkFavorites(identi) ? blackHeart : whiteHeart }
+        >
+          <img src={ checkFavorites(identi) ? blackHeart : whiteHeart } alt="favorite" />
         </button>
       </div>
       <section className="ingredient-list">
@@ -121,6 +155,8 @@ FoodProgressCard.propTypes = {
     reco: PropTypes.arrayOf(PropTypes.object).isRequired,
     identi: PropTypes.string.isRequired,
     alcoholic: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    nationality: PropTypes.string,
   }),
 };
 
@@ -128,6 +164,7 @@ FoodProgressCard.defaultProps = {
   details: PropTypes.shape({
     category: null,
     video: null,
-    alcoholic: null,
+    alcoholic: '',
+    nationality: '',
   }),
 };

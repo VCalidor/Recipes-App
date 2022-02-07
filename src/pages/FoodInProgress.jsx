@@ -44,7 +44,7 @@ export default function FoodInProgress({ match: { params: { id } } }) {
 
   const setDetailsProps = () => {
     const { strMeal, strMealThumb, strYoutube,
-      strCategory, strInstructions, idMeal } = recipe[0];
+      strCategory, strInstructions, idMeal, strArea } = recipe[0];
     return {
       image: strMealThumb,
       title: strMeal,
@@ -54,6 +54,9 @@ export default function FoodInProgress({ match: { params: { id } } }) {
       video: strYoutube,
       identi: idMeal,
       reco,
+      type: 'food',
+      nationality: strArea,
+      alcoholic: '',
     };
   };
 
@@ -72,9 +75,6 @@ export default function FoodInProgress({ match: { params: { id } } }) {
           meals: { [recipe[0].idMeal]: [] },
         }));
       JSON.parse(localStorage.getItem('inProgressRecipes'));
-    } else if (recipe.length > 0) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(locStore));
     }
   }, [recipe]);
 

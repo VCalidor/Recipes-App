@@ -43,7 +43,7 @@ export default function DrinkInProgress({ match: { params: { id } } }) {
 
   const setDetailsProps = () => {
     const { strDrink, strDrinkThumb, strYoutube,
-      strCategory, strInstructions, idDrink } = recipe[0];
+      strCategory, strInstructions, idDrink, strAlcoholic } = recipe[0];
     return {
       image: strDrinkThumb,
       title: strDrink,
@@ -53,6 +53,9 @@ export default function DrinkInProgress({ match: { params: { id } } }) {
       video: strYoutube,
       identi: idDrink,
       reco,
+      type: 'drink',
+      nationality: '',
+      alcoholic: strAlcoholic,
     };
   };
 
@@ -68,7 +71,7 @@ export default function DrinkInProgress({ match: { params: { id } } }) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           cocktails: { [recipe[0].idDrink]: [] },
-          Drinks: {},
+          meals: {},
         }));
       JSON.parse(localStorage.getItem('inProgressRecipes'));
     } else if (recipe.length > 0) {
