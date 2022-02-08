@@ -42,7 +42,7 @@ export default function DrinkInProgress({ match: { params: { id } } }) {
   };
 
   const setDetailsProps = () => {
-    const { strDrink, strDrinkThumb, strYoutube,
+    const { strDrink, strDrinkThumb, strYoutube, strTags,
       strCategory, strInstructions, idDrink, strAlcoholic } = recipe[0];
     return {
       image: strDrinkThumb,
@@ -56,6 +56,7 @@ export default function DrinkInProgress({ match: { params: { id } } }) {
       type: 'drink',
       nationality: '',
       alcoholic: strAlcoholic,
+      tags: strTags || [],
     };
   };
 

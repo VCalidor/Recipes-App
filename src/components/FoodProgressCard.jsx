@@ -7,7 +7,7 @@ import blackHeart from '../images/blackHeartIcon.svg';
 import '../css/Details.css';
 import IngredientsProgress from './IngredientsProgress';
 import MyContext from '../context/MyContext';
-import { setLocalIterable } from '../services/helpers';
+import { getData, setLocalIterable } from '../services/helpers';
 
 const copy = require('clipboard-copy');
 
@@ -18,7 +18,7 @@ export default function FoodProgressCard({ details }) {
     image, title, newObj,
     category, instructions,
     video, alcoholic, identi,
-    type, nationality,
+    type, nationality, tags,
   } = details;
   const [visible, setVisible] = useState(false);
 
@@ -26,7 +26,8 @@ export default function FoodProgressCard({ details }) {
     .parse(localStorage
       .getItem('inProgressRecipes')).meals[identi] || []);
 
-  const { setFavorites, favorites, checkFavorites } = useContext(MyContext);
+  const { setFavorites,
+    favorites, checkFavorites, setDoneRecipes, doneRecipes } = useContext(MyContext);
 
   const history = useHistory();
 
@@ -60,6 +61,20 @@ export default function FoodProgressCard({ details }) {
   };
 
   const finishRecipeBtn = () => {
+    const obj = {
+      id: identi,
+      name: title,
+      image,
+      category,
+      alcoholicOrNot: alcoholic,
+      type,
+      nationality: '',
+      doneDate: getData(),
+      tags,
+    };
+    setDoneRecipes(doneRecipes.concat(obj));
+    setLocalIterable('doneRecipes', [...doneRecipes, obj]);
+    console.log(tags);
     history.push('/done-recipes');
   };
 
@@ -157,6 +172,7 @@ FoodProgressCard.propTypes = {
     alcoholic: PropTypes.string,
     type: PropTypes.string.isRequired,
     nationality: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 
@@ -166,5 +182,6 @@ FoodProgressCard.defaultProps = {
     video: null,
     alcoholic: '',
     nationality: '',
+    tags: [],
   }),
 };

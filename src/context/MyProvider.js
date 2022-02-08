@@ -17,6 +17,7 @@ export default function MyProvider({ children }) {
   const [filtersCategory, setFiltersCategory] = useState('');
   const [sendFood, setSendFood] = useState('');
   const [sendDrink, setSendDrink] = useState('');
+  const [doneRecipes, setDoneRecipes] = useState(getLocalIterable('doneRecipes') || []);
 
   const foodData = async () => setGlobalFoods(await mealsAPI(mealsRender));
   const drinksData = async () => setGlobalDrinks(await cocktailsAPI(drinksRender));
@@ -50,6 +51,8 @@ export default function MyProvider({ children }) {
     setSendDrink,
     setSendFood,
     sendFood,
+    doneRecipes,
+    setDoneRecipes,
   };
 
   return (

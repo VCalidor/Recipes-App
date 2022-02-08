@@ -1,38 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-const doneRecipes = [
-  {
-    id: '52771',
-    type: 'food',
-    nationality: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'drink',
-    nationality: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
-
 export default function DoneRecipes() {
   const [recipes, getRecipes] = useState([]);
   const [visible, setVisible] = useState(false);
+  const { doneRecipes } = useContext(MyContext);
 
   const filterFood = () => {
     const foods = doneRecipes.filter((meal) => meal.type === 'food');
@@ -132,14 +109,22 @@ export default function DoneRecipes() {
                 </h5>
               ) }
               {
-                tags.slice(0, 2).map((tagName, i) => (
+                tags ? (
+                  tags.map((tagName, i) => (
+                    <span
+                      data-testid={ `${index}-${tagName}-horizontal-tag` }
+                      key={ i }
+                    >
+                      {`${tagName} `}
+                    </span>
+                  ))
+                ) : (
                   <span
-                    data-testid={ `${index}-${tagName}-horizontal-tag` }
-                    key={ i }
+                    data-testid={ `${0}-${tags}-horizontal-tag` }
                   >
-                    {`${tagName} `}
+                    { tags }
                   </span>
-                ))
+                )
               }
             </Link>
             <div>

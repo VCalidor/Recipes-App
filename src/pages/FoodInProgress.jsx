@@ -43,7 +43,7 @@ export default function FoodInProgress({ match: { params: { id } } }) {
   };
 
   const setDetailsProps = () => {
-    const { strMeal, strMealThumb, strYoutube,
+    const { strMeal, strMealThumb, strYoutube, strTags,
       strCategory, strInstructions, idMeal, strArea } = recipe[0];
     return {
       image: strMealThumb,
@@ -57,6 +57,7 @@ export default function FoodInProgress({ match: { params: { id } } }) {
       type: 'food',
       nationality: strArea,
       alcoholic: '',
+      tags: strTags.split(',') || [],
     };
   };
 
