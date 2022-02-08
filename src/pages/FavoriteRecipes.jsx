@@ -1,35 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
+import MyContext from '../context/MyContext';
+import { setLocalIterable } from '../services/helpers';
 
 const copy = require('clipboard-copy');
-
-const favoriteRecipes = [
-  {
-    id: '52771',
-    type: 'food',
-    nationality: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  },
-  {
-    id: '178319',
-    type: 'drink',
-    nationality: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  },
-];
 
 export default function FavoriteRecipes() {
   const [visible, setVisible] = useState(false);
   const [recipes, getRecipes] = useState([]);
+  const { favorites, setFavorites } = useContext(MyContext);
 
   const shareAlert = (type, id) => {
     copy(`http://localhost:3000/${type}s/${id}`);
@@ -40,23 +22,29 @@ export default function FavoriteRecipes() {
     }
   };
 
+  const removeFavorite = (id) => {
+    const filteredFavorites = favorites.filter((favorite) => favorite.id !== id);
+    setFavorites(filteredFavorites);
+    setLocalIterable('favoriteRecipes', filteredFavorites);
+  };
+
   const filterFood = () => {
-    const foods = favoriteRecipes.filter((meal) => meal.type === 'food');
+    const foods = favorites.filter((meal) => meal.type === 'food');
     getRecipes(foods);
   };
 
   const filterDrink = () => {
-    const drinks = favoriteRecipes.filter((meal) => meal.type === 'drink');
+    const drinks = favorites.filter((meal) => meal.type === 'drink');
     getRecipes(drinks);
   };
 
   const filterAll = () => {
-    getRecipes(favoriteRecipes);
+    getRecipes(favorites);
   };
 
   useEffect(() => {
     filterAll();
-  }, []);
+  }, [favorites]);
 
   return (
     <div>
@@ -134,6 +122,8 @@ export default function FavoriteRecipes() {
               )}
               <button
                 type="button"
+                onClick={ () => removeFavorite(id) }
+
               >
                 <img
                   src={ blackHeart }

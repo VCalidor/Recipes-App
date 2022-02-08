@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes, { objectOf } from 'prop-types';
+import '../css/Details.css';
 
 function RecomendCard({ reco }) {
   return (
@@ -14,7 +15,11 @@ function RecomendCard({ reco }) {
             >
               <img src={ rec.strDrinkThumb } alt="recomendation" />
               <h4>{rec.strAlcoholic}</h4>
-              <h4>{rec.strDrink}</h4>
+              <h4
+                data-testid={ `${index}-recomendation-title` }
+              >
+                {rec.strDrink}
+              </h4>
             </div>
           ))
         )
@@ -28,7 +33,11 @@ function RecomendCard({ reco }) {
               className="recomend-card"
             >
               <img src={ rec.strMealThumb } alt="recomendation" />
-              <h4>{rec.strMeal}</h4>
+              <h4
+                data-testid={ `${index}-recomendation-title` }
+              >
+                {rec.strMeal}
+              </h4>
             </div>
           ))
         )
