@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import cocktailsAPI from '../services/cocktailsAPI';
 import { drinkIngList } from '../data';
 import '../css/FoodAndDrinkIngredients.css';
+import MyContext from '../context/MyContext';
 
 export default function SearchDrinkByIngredients() {
   const [ingredients, setIngredients] = useState([]);
+  const { setSendDrink } = useContext(MyContext);
+  const history = useHistory();
 
   const getIngredients = async () => {
     const magicNumber = 12;
@@ -20,6 +24,11 @@ export default function SearchDrinkByIngredients() {
     getIngredients();
   }, []);
 
+  const sendDrinkIngredient = (ingredient) => {
+    setSendDrink(ingredient);
+    history.push('/drinks');
+  };
+
   return (
     <div className="ingredient-container">
       <Header title="Explore Ingredients" search="" />
@@ -31,6 +40,7 @@ export default function SearchDrinkByIngredients() {
               type="button"
               key={ index }
               data-testid={ `${index}-ingredient-card` }
+              onClick={ () => sendDrinkIngredient(ingredient) }
             >
               <img
                 src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }

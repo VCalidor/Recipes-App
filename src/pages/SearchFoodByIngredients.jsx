@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import mealsAPI from '../services/mealsAPI';
 import { mealsIngList } from '../data';
 import '../css/FoodAndDrinkIngredients.css';
+import MyContext from '../context/MyContext';
 
 export default function SearchFoodByIngredients() {
   const [ingredients, setIngredients] = useState([]);
+  const { setSendFood } = useContext(MyContext);
+  const history = useHistory();
 
   const getIngredients = async () => {
     const magicNumber = 12;
@@ -20,6 +24,11 @@ export default function SearchFoodByIngredients() {
     getIngredients();
   }, []);
 
+  const teste = (ingredient) => {
+    setSendFood(ingredient);
+    history.push('/foods');
+  };
+
   return (
     <div className="ingredient-container">
       <Header title="Explore Ingredients" search="" />
@@ -27,11 +36,11 @@ export default function SearchFoodByIngredients() {
         {
           ingredients.map((ingredient, index) => (
             <button
-              className="ingredient-card"
               type="button"
-              value={ ingredient }
+              className="ingredient-card"
               key={ index }
               data-testid={ `${index}-ingredient-card` }
+              onClick={ () => teste(ingredient) }
             >
               <img
                 src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
